@@ -46,17 +46,17 @@ create table usuarios (
 	primary key(id));
 
 CREATE  TABLE `gomeria`.`emails` (
-  'id' INT NOT NULL AUTO_INCREMENT ,
+  `id` INT NOT NULL AUTO_INCREMENT ,
   `email` VARCHAR(45) NOT NULL ,
   `password` VARCHAR(45) NULL ,
   PRIMARY KEY (`id`) );
 
 
-CREATE  TABLE `gomeria`.`envios` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `fecha` DATE NOT NULL ,
-  `enviado` INT NULL DEFAULT NULL,
-  PRIMARY KEY (`fecha`) );
+CREATE TABLE envios (
+  id integer NOT NULL AUTO_INCREMENT,
+  fecha DATE NOT NULL ,
+  enviado INT NULL DEFAULT NULL,
+  PRIMARY KEY (`id`,`fecha`) );
 
 create table gomeria.ventas (
     id integer not null auto_increment,
@@ -71,7 +71,7 @@ create table gomeria.compras (
     monto float,
     proveedor_id integer,
     fecha date not null,
-    pago_id
+    pago_id int,
     PRIMARY KEY (`id`) );
 
 
@@ -100,11 +100,11 @@ CREATE  TABLE `gomeria`.`pagos` (
 CREATE  TABLE `gomeria`.`cobros` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `fecha` DATE NULL DEFAULT NULL,
-  'fecha_pago' DATE NULL DEFAULT NULL,
+  `fecha_pago` DATE NULL DEFAULT NULL,
   `monto` FLOAT NULL,
-  'monto_pago' FLOAT NULL,
-  'estado' VARCHAR(10),
-  'descripcion' VARCHAR(200),
-  'cliente_id' INT NULL DEFAULT NULL,
-  'venta_id' INT NULL DEFAULT NULL,
+  `monto_pago` FLOAT NULL,
+  `estado` VARCHAR(10),
+  `descripcion` VARCHAR(200),
+  `cliente_id` INT NULL DEFAULT NULL,
+  `venta_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`) );
