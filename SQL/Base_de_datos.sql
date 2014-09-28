@@ -13,6 +13,8 @@ CREATE  TABLE `gomeria`.`clientes` (
   `email` VARCHAR(60) NULL ,
   `razon` VARCHAR(40) NULL ,
   `tipo` VARCHAR(40) NULL ,
+  `vendidos` INT(10) NULL ,
+
 	PRIMARY KEY (`id`) );
 
 CREATE  TABLE `gomeria`.`proveedors` (
@@ -31,11 +33,11 @@ CREATE  TABLE `gomeria`.`articulos` (
   `medida` VARCHAR(50) NULL ,
   `marca` VARCHAR(30) NULL ,
   `stock` INT NULL DEFAULT 0 ,
-  `stock_minimo` INT NULL DEFAULT 0 ,
   `precio_compra` FLOAT NULL DEFAULT 0 ,
   `precio_venta` FLOAT NULL DEFAULT 0 ,
   `descripcion` VARCHAR(200) NULL ,
   `tipo` VARCHAR(30) NULL ,
+  `vehiculo` VARCHAR(30) NULL ,
   PRIMARY KEY (`id`) );
 
 
@@ -61,9 +63,11 @@ CREATE TABLE envios (
 create table gomeria.ventas (
     id integer not null auto_increment,
     monto float,
+    descripcion varchar(200),
     cliente_id integer,
     fecha date not null,
-    cobro_id INT NULL DEFAULT NULL,
+    cant_cuotas INT,
+    forma_pago varchar(20),
     PRIMARY KEY (`id`) );
 
 create table gomeria.compras (
@@ -105,6 +109,5 @@ CREATE  TABLE `gomeria`.`cobros` (
   `monto_pago` FLOAT NULL,
   `estado` VARCHAR(10),
   `descripcion` VARCHAR(200),
-  `cliente_id` INT NULL DEFAULT NULL,
   `venta_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`) );
