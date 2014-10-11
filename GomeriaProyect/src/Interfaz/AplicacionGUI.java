@@ -1,6 +1,9 @@
 package Interfaz;
 
 
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JDesktopPane;
 import javax.swing.JOptionPane;
 
 /*
@@ -21,6 +24,16 @@ public class AplicacionGUI extends javax.swing.JFrame {
         initComponents();
     }
 
+    public JButton getClientesBtn() {
+        return clientesBtn;
+    }
+
+    public JDesktopPane getContenedorDesk() {
+        return ContenedorDesk;
+    }
+
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,7 +51,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
         cargarCompraBtn = new javax.swing.JButton();
         comprasBtn = new javax.swing.JButton();
         proveedoresBtn = new javax.swing.JButton();
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        ContenedorDesk = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         cambiosEmail = new javax.swing.JMenuItem();
@@ -159,13 +172,13 @@ public class AplicacionGUI extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jDesktopPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 822, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(ContenedorDesk, javax.swing.GroupLayout.DEFAULT_SIZE, 822, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jDesktopPane1)
+            .addComponent(ContenedorDesk)
         );
 
         pack();
@@ -184,6 +197,10 @@ public class AplicacionGUI extends javax.swing.JFrame {
         acercaDe.setVisible(true);
     }//GEN-LAST:event_tecProActionPerformed
 
+    
+    public void setActionListener(ActionListener lis) {
+        this.clientesBtn.addActionListener(lis);
+    }
     /**
      * @param args the command line arguments
      */
@@ -220,6 +237,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JDesktopPane ContenedorDesk;
     private javax.swing.JButton articulosBtn;
     private javax.swing.JMenuItem cambiosEmail;
     private javax.swing.JMenuItem cargarBackup;
@@ -231,7 +249,6 @@ public class AplicacionGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem crearBackup;
     private javax.swing.JButton crearVentaBtn;
     private javax.swing.JMenuItem enviar;
-    private javax.swing.JDesktopPane jDesktopPane1;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;

@@ -12,6 +12,7 @@ CREATE  TABLE `gomeria`.`clientes` (
   `zona` VARCHAR(30) NULL ,
   `email` VARCHAR(60) NULL ,
   `razon` VARCHAR(40) NULL ,
+  `cuit` VARCHAR (20) NULL,
   `tipo` VARCHAR(40) NULL ,
   `vendidos` INT(10) NULL ,
 
