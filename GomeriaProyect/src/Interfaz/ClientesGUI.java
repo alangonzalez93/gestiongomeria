@@ -6,6 +6,7 @@
 package Interfaz;
 
 import java.awt.event.ActionListener;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
@@ -100,6 +101,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
     public void setEncontradosLbl(JLabel encontradosLbl) {
         this.encontradosLbl = encontradosLbl;
     }
+    
 
     public JTextField getMailTxt() {
         return mailTxt;
@@ -180,9 +182,13 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
     public void setIdTxt(JTextField idTxt) {
         this.idTxt = idTxt;
     }
+
+    public JLabel getCuitLbl() {
+        return CuitLbl;
+    }
     
 
-    public void ApreteBtnNuevo(){
+    public void ApreteBtnNuevoModificar(){
         apellidoTxt.setEnabled(true);
         celularTxt.setEnabled(true);
         ciudadBox.setEnabled(true);
@@ -194,9 +200,10 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         telTxt.setEnabled(true);
         tipoClienteBox.setEnabled(true);
         zonaBox.setEnabled(true);
-        BtnNuevo.setName("Guardar");
-        BtnEliminar.setName("Cancelar");
+        BtnNuevo.setText("Guardar");
+        BtnEliminar.setText("Cancelar");
         BtnEliminar.setEnabled(true);
+        BtnModificar.setEnabled(false);
     }
     
     public void EstadoInicial(){
@@ -211,9 +218,29 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         telTxt.setEnabled(false);
         tipoClienteBox.setEnabled(false);
         zonaBox.setEnabled(false);
-        BtnNuevo.setName("Nuevo");
-        BtnEliminar.setName("Eliminar");
+        BtnNuevo.setText("Nuevo");
+        BtnEliminar.setText("Eliminar");
         BtnEliminar.setEnabled(false);
+        BtnModificar.setEnabled(false);
+    }
+    
+    public void EstadoClienteSeleccionado(){
+        apellidoTxt.setEnabled(false);
+        celularTxt.setEnabled(false);
+        ciudadBox.setEnabled(false);
+        cuitTxt.setEnabled(false); 
+        direccionTxt.setEnabled(false);
+        mailTxt.setEnabled(false);
+        nombreTxt.setEnabled(false);
+        razonBox.setEnabled(false);
+        telTxt.setEnabled(false);
+        tipoClienteBox.setEnabled(false);
+        zonaBox.setEnabled(false);
+        BtnNuevo.setText("Nuevo");
+        BtnEliminar.setText("Eliminar");
+        BtnEliminar.setEnabled(true);
+        BtnNuevo.setEnabled(true);
+        BtnModificar.setEnabled(true);
     }
     
     public void EstadoLuegoDeModificar(){
@@ -228,13 +255,14 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         telTxt.setEnabled(false);
         tipoClienteBox.setEnabled(false);
         zonaBox.setEnabled(false);
-        BtnNuevo.setName("Nuevo");
-        BtnEliminar.setName("Eliminar");
+        BtnNuevo.setText("Nuevo");
+        BtnEliminar.setText("Eliminar");
         BtnEliminar.setEnabled(true);
         BtnModificar.setEnabled(true);
     }
     
     public void LimpiarCampos(){
+        idTxt.setText("");
         apellidoTxt.setText("");
         celularTxt.setText("");
         ciudadBox.setSelectedIndex(0);
@@ -242,14 +270,17 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         direccionTxt.setText("");
         mailTxt.setText("");
         nombreTxt.setText("");
-        razonBox.setSelectedItem(0);
+        razonBox.setSelectedIndex(0);
+        cuitTxt.setEnabled(false);
         telTxt.setText("");
         tipoClienteBox.setSelectedIndex(0);
         zonaBox.setSelectedIndex(0);
     }
     
     public void setActionListener(ActionListener lis) {
-        
+        BtnNuevo.addActionListener(lis);
+        BtnModificar.addActionListener(lis);
+        BtnEliminar.addActionListener(lis);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -290,7 +321,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         razonBox = new javax.swing.JComboBox();
         jLabel12 = new javax.swing.JLabel();
         tipoClienteBox = new javax.swing.JComboBox();
-        jLabel13 = new javax.swing.JLabel();
+        CuitLbl = new javax.swing.JLabel();
         cuitTxt = new javax.swing.JTextField();
         idTxt = new javax.swing.JTextField();
         jPanel3 = new javax.swing.JPanel();
@@ -303,13 +334,20 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         jLabel15 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
 
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Gestion de clientes");
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createTitledBorder("")), "Clientes"));
 
         jLabel1.setText("Busqueda");
 
         jLabel2.setText("Buscar por");
 
-        buscarBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        buscarBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NOMBRE", "CIUDAD", "ZONA", "TIPO", "RAZON" }));
 
         TablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -429,8 +467,8 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         tipoClienteBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NO ESPECIFICA", "MOSTRADOR", "CALLE" }));
         tipoClienteBox.setEnabled(false);
 
-        jLabel13.setText("CUIT");
-        jLabel13.setEnabled(false);
+        CuitLbl.setText("CUIT");
+        CuitLbl.setEnabled(false);
 
         cuitTxt.setEnabled(false);
 
@@ -462,7 +500,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(razonBox, javax.swing.GroupLayout.PREFERRED_SIZE, 196, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel13)
+                        .addComponent(CuitLbl)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cuitTxt))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -535,7 +573,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel11)
                     .addComponent(razonBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel13)
+                    .addComponent(CuitLbl)
                     .addComponent(cuitTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -676,6 +714,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnModificar;
     private javax.swing.JButton BtnNuevo;
+    private javax.swing.JLabel CuitLbl;
     private javax.swing.JTable TablaClientes;
     private javax.swing.JTextField apellidoTxt;
     private javax.swing.JComboBox buscarBox;
@@ -691,7 +730,6 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
