@@ -5,6 +5,18 @@
  */
 package Interfaz;
 
+import com.toedter.calendar.JDateChooser;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author alan
@@ -14,10 +26,115 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     /**
      * Creates new form CargarVentaGUI
      */
+    private DefaultTableModel tablaClientesDefault;
+    private DefaultTableModel tablaArticulosDefault;
+    private DefaultTableModel tablaVentaDefault;
+    
     public CargarVentaGUI() {
         initComponents();
+        tablaClientesDefault = (DefaultTableModel) tablaClientes.getModel();
+        tablaArticulosDefault = (DefaultTableModel) tablaArticulos.getModel();
+        tablaVentaDefault = (DefaultTableModel) tablaVenta.getModel();
+        calendarioTxt.setDate(Calendar.getInstance().getTime());
     }
 
+    public DefaultTableModel getTablaClientesDefault() {
+        return tablaClientesDefault;
+    }
+
+    public DefaultTableModel getTablaArticulosDefault() {
+        return tablaArticulosDefault;
+    }
+
+    public JTable getTablaVenta() {
+        return tablaVenta;
+    }
+
+    public DefaultTableModel getTablaVentaDefault() {
+        return tablaVentaDefault;
+    }
+
+    public JComboBox getBusquedaArticuloBox() {
+        return busquedaArticuloBox;
+    }
+
+    public JTextField getBusquedaMedidaTxt() {
+        return busquedaMedidaTxt;
+    }
+
+    public JTextField getBusquedaNombreTxt() {
+        return busquedaNombreTxt;
+    }
+
+    public JTextField getCalendarioTxt() {
+        return ((JTextField) calendarioTxt.getDateEditor().getUiComponent());
+    }
+
+    public JDateChooser getCalendario() {
+        return calendarioTxt;
+    }
+    
+    
+    public JButton getCancelarVentaBtn() {
+        return cancelarVentaBtn;
+    }
+
+    public JTextArea getDescripcionArea() {
+        return descripcionArea;
+    }
+
+    public JSpinner getCantidadCuotasSp() {
+        return cantidadCuotasSp;
+    }
+
+    public JLabel getNroChequeLbl() {
+        return nroChequeLbl;
+    }
+
+    public JTextField getNroChequeTxt() {
+        return nroChequeTxt;
+    }
+
+    public JComboBox getFormaPagoBox() {
+        return formaPagoBox;
+    }
+
+    public JTextField getIdClienteTxt() {
+        return idClienteTxt;
+    }
+
+    public JTextField getMontoCuotasTxt() {
+        return montoCuotasTxt;
+    }
+
+    public JTextField getNombreClienteTxt() {
+        return nombreClienteTxt;
+    }
+
+    public JButton getQuitarBtn() {
+        return quitarBtn;
+    }
+
+    public JButton getRegistrarVentaBtn() {
+        return registrarVentaBtn;
+    }
+
+    public JTable getTablaArticulos() {
+        return tablaArticulos;
+    }
+
+    public JTable getTablaClientes() {
+        return tablaClientes;
+    }
+
+    public JTextField getTotalTxt() {
+        return totalTxt;
+    }
+
+    public void setActionListener(ActionListener lis) {
+        quitarBtn.addActionListener(lis);
+        registrarVentaBtn.addActionListener(lis);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,19 +146,19 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tablaClientes = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         busquedaNombreTxt = new javax.swing.JTextField();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        tablaArticulos = new javax.swing.JTable();
         jLabel2 = new javax.swing.JLabel();
         busquedaMedidaTxt = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox();
+        busquedaArticuloBox = new javax.swing.JComboBox();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable3 = new javax.swing.JTable();
+        tablaVenta = new javax.swing.JTable();
         jLabel4 = new javax.swing.JLabel();
         nombreClienteTxt = new javax.swing.JTextField();
         idClienteTxt = new javax.swing.JTextField();
@@ -55,15 +172,25 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         cantidadCuotasSp = new javax.swing.JSpinner();
         jLabel9 = new javax.swing.JLabel();
         montoCuotasTxt = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        entregaTxt = new javax.swing.JTextField();
+        nroChequeLbl = new javax.swing.JLabel();
+        nroChequeTxt = new javax.swing.JTextField();
         quitarBtn = new javax.swing.JButton();
+        jLabel11 = new javax.swing.JLabel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        descripcionArea = new javax.swing.JTextArea();
         registrarVentaBtn = new javax.swing.JButton();
         cancelarVentaBtn = new javax.swing.JButton();
 
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Cargar venta");
+
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Clientes"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tablaClientes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -75,22 +202,28 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tablaClientes);
 
         jLabel1.setText("Nombre");
+
+        busquedaNombreTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                busquedaNombreTxtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -109,7 +242,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Articulos"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        tablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -117,24 +250,24 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                 {null, null, null, null, null}
             },
             new String [] {
-                "ID", "Medida", "Marca", "Disenio", "Vehiculo"
+                "ID", "Marca", "Disenio", "Medida", "Stock"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false
+                false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(tablaArticulos);
 
         jLabel2.setText("Medida");
 
-        jLabel3.setText("Vehiculo");
+        jLabel3.setText("Articulo");
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        busquedaArticuloBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "NEUMATICO", "RUEDA", "CAMARA" }));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -148,8 +281,8 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(busquedaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jScrollPane2)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -158,7 +291,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                     .addComponent(busquedaMedidaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel2)
                     .addComponent(jLabel3)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(busquedaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
@@ -166,40 +299,44 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
 
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder("Venta"));
 
-        jTable3.setModel(new javax.swing.table.DefaultTableModel(
+        tablaVenta.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Articulo", "Cantidad", "Precio"
-            }
+                "ID", "Articulo", "Cantidad","Precio unit.", "Precio tot." }
         ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, true, true
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.math.BigDecimal.class, java.math.BigDecimal.class, java.math.BigDecimal.class
             };
+            boolean[] canEdit = new boolean [] {
+                false, false, true, true, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane3.setViewportView(jTable3);
+        jScrollPane3.setViewportView(tablaVenta);
 
         jLabel4.setText("Cliente");
+
+        nombreClienteTxt.setEditable(false);
 
         idClienteTxt.setEnabled(false);
 
         jLabel5.setText("Fecha");
 
-        calendarioTxt.setDateFormatString("yyyy-MM-dd");
+        calendarioTxt.setDateFormatString("dd-MM-yyyy");
 
         jLabel6.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
         jLabel6.setText("TOTAL  $");
 
         totalTxt.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
-        totalTxt.setText("1498.25");
 
         jLabel7.setText("Forma de pago");
 
@@ -208,14 +345,29 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         jLabel8.setText("Cantidad de cuotas");
 
         cantidadCuotasSp.setEnabled(false);
+        cantidadCuotasSp.setValue(1);
 
         jLabel9.setText("Cuotas de $");
 
         montoCuotasTxt.setEnabled(false);
 
-        jLabel10.setText("Entrega $");
+        nroChequeLbl.setText("Nro cheque");
+        nroChequeLbl.setEnabled(false);
+
+        nroChequeTxt.setEnabled(false);
 
         quitarBtn.setText("Quitar articulo");
+        quitarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitarBtnActionPerformed(evt);
+            }
+        });
+
+        jLabel11.setText("Notas:");
+
+        descripcionArea.setColumns(20);
+        descripcionArea.setRows(5);
+        jScrollPane4.setViewportView(descripcionArea);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -225,16 +377,28 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(quitarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(77, 77, 77)
-                                .addComponent(jLabel6)
+                                .addComponent(jLabel5)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(totalTxt)
-                                .addGap(35, 35, 35))
-                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(calendarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
+                        .addContainerGap())
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addGap(4, 4, 4)
+                        .addComponent(nombreClienteTxt)
+                        .addGap(18, 18, 18)
+                        .addComponent(idClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(54, 54, 54))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(12, 12, 12)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                                .addComponent(jScrollPane4)
+                                .addContainerGap())
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addComponent(jLabel8)
@@ -249,30 +413,25 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addGap(10, 10, 10)
-                                        .addComponent(jLabel10)
+                                        .addComponent(nroChequeLbl)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(entregaTxt)
-                                        .addGap(51, 51, 51))
+                                        .addComponent(nroChequeTxt))
                                     .addGroup(jPanel3Layout.createSequentialGroup()
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(montoCuotasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(montoCuotasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(21, 21, 21))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(jLabel5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(calendarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 534, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(jPanel3Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(4, 4, 4)
-                        .addComponent(nombreClienteTxt)
-                        .addGap(18, 18, 18)
-                        .addComponent(idClienteTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(54, 54, 54))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addGap(197, 197, 197)
+                                        .addComponent(jLabel6))
+                                    .addComponent(jLabel11))
+                                .addGap(18, 18, 18)
+                                .addComponent(totalTxt)
+                                .addGap(14, 14, 14))
+                            .addGroup(jPanel3Layout.createSequentialGroup()
+                                .addComponent(quitarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -289,26 +448,31 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(calendarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel6)
                         .addComponent(totalTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(quitarBtn))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addComponent(quitarBtn)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel11)))
+                .addGap(5, 5, 5)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(formaPagoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
-                    .addComponent(jLabel10)
-                    .addComponent(entregaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(nroChequeLbl)
+                    .addComponent(nroChequeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel8)
                     .addComponent(cantidadCuotasSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel9)
                     .addComponent(montoCuotasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addGap(16, 16, 16))
         );
 
         registrarVentaBtn.setText("Registrar venta");
@@ -325,12 +489,12 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(registrarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(registrarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(cancelarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -342,8 +506,8 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(registrarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                            .addComponent(cancelarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addComponent(cancelarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                            .addComponent(registrarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -354,19 +518,27 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void busquedaNombreTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_busquedaNombreTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_busquedaNombreTxtActionPerformed
+
+    private void quitarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_quitarBtnActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox busquedaArticuloBox;
     private javax.swing.JTextField busquedaMedidaTxt;
     private javax.swing.JTextField busquedaNombreTxt;
     private com.toedter.calendar.JDateChooser calendarioTxt;
     private javax.swing.JButton cancelarVentaBtn;
     private javax.swing.JSpinner cantidadCuotasSp;
-    private javax.swing.JTextField entregaTxt;
+    private javax.swing.JTextArea descripcionArea;
     private javax.swing.JComboBox formaPagoBox;
     private javax.swing.JTextField idClienteTxt;
-    private javax.swing.JComboBox jComboBox1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -381,13 +553,16 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
-    private javax.swing.JTable jTable3;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField montoCuotasTxt;
     private javax.swing.JTextField nombreClienteTxt;
+    private javax.swing.JLabel nroChequeLbl;
+    private javax.swing.JTextField nroChequeTxt;
     private javax.swing.JButton quitarBtn;
     private javax.swing.JButton registrarVentaBtn;
+    private javax.swing.JTable tablaArticulos;
+    private javax.swing.JTable tablaClientes;
+    private javax.swing.JTable tablaVenta;
     private javax.swing.JTextField totalTxt;
     // End of variables declaration//GEN-END:variables
 }

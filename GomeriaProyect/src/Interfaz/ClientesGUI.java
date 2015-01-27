@@ -21,12 +21,16 @@ import javax.swing.table.DefaultTableModel;
 public class ClientesGUI extends javax.swing.JInternalFrame {
 
     private DefaultTableModel TablaClientesDefault;
+    private DefaultTableModel TablaVentaClientesDefault;
+    private DefaultTableModel TablaCuotasVentasClientesDefault;
     /**
      * Creates new form ClientesGUI
      */
     public ClientesGUI() {
         initComponents();
         TablaClientesDefault = (DefaultTableModel) TablaClientes.getModel();
+        TablaVentaClientesDefault = (DefaultTableModel) TablaVentasCliente.getModel();
+        TablaCuotasVentasClientesDefault = (DefaultTableModel) TableCuotasVentaCliente.getModel();
     }
 
     public DefaultTableModel getTablaClientesDefault() {
@@ -35,6 +39,26 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
     public JTable getTablaClientes() {
         return TablaClientes;
+    }
+
+    public JLabel getLblCompoPor() {
+        return LblCompoPor;
+    }
+
+    public DefaultTableModel getTablaVentaClientesDefault() {
+        return TablaVentaClientesDefault;
+    }
+
+    public DefaultTableModel getTablaCuotasVentasClientesDefault() {
+        return TablaCuotasVentasClientesDefault;
+    }
+
+    public JTable getTablaVentasCliente() {
+        return TablaVentasCliente;
+    }
+
+    public JTable getTableCuotasVentaCliente() {
+        return TableCuotasVentaCliente;
     }
 
     
@@ -68,6 +92,26 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
     public void setCelularTxt(JTextField celularTxt) {
         this.celularTxt = celularTxt;
+    }
+
+    public JButton getBtnCrearNuevoPago() {
+        return BtnCrearNuevoPago;
+    }
+
+    public JButton getBtnEliminarPago() {
+        return BtnEliminarPago;
+    }
+
+    public JButton getBtnModificarPago() {
+        return BtnModificarPago;
+    }
+
+    public JButton getBtnPagarCuota() {
+        return BtnPagarCuota;
+    }
+
+    public JButton getBtnVerTodosPagos() {
+        return BtnVerTodosPagos;
     }
 
     public JComboBox getCiudadBox() {
@@ -276,11 +320,31 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         tipoClienteBox.setSelectedIndex(0);
         zonaBox.setSelectedIndex(0);
     }
+
+    public JButton getBtnEliminarVenta() {
+        return BtnEliminarVenta;
+    }
+
+    public JButton getBtnModificarVenta() {
+        return BtnModificarVenta;
+    }
+
+    public JButton getBtnNuevaVenta() {
+        return BtnNuevaVenta;
+    }
     
     public void setActionListener(ActionListener lis) {
         BtnNuevo.addActionListener(lis);
         BtnModificar.addActionListener(lis);
         BtnEliminar.addActionListener(lis);
+        BtnCrearNuevoPago.addActionListener(lis);
+        BtnEliminarPago.addActionListener(lis);
+        BtnModificarPago.addActionListener(lis);
+        BtnPagarCuota.addActionListener(lis);
+        BtnVerTodosPagos.addActionListener(lis);
+        BtnNuevaVenta.addActionListener(lis);
+        BtnEliminarVenta.addActionListener(lis);
+        BtnModificarVenta.addActionListener(lis);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -330,9 +394,23 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         BtnEliminar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        TablaVentasCliente = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox();
+        jLabel13 = new javax.swing.JLabel();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        TableCuotasVentaCliente = new javax.swing.JTable();
+        BtnPagarCuota = new javax.swing.JButton();
+        BtnEliminarPago = new javax.swing.JButton();
+        BtnModificarPago = new javax.swing.JButton();
+        BtnVerTodosPagos = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
+        LblCompoPor = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        BtnNuevaVenta = new javax.swing.JButton();
+        BtnModificarVenta = new javax.swing.JButton();
+        BtnEliminarVenta = new javax.swing.JButton();
+        BtnCrearNuevoPago = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -364,7 +442,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                 java.lang.Integer.class, java.lang.String.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, true
+                false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -418,7 +496,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                     .addComponent(jLabel14)
                     .addComponent(encontradosLbl))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
         );
 
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder("Datos del cliente"));
@@ -617,22 +695,22 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder("Ventas realizadas"));
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        TablaVentasCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "ID", "Fecha", "Monto"
+                "ID", "Fecha", "Monto", "Forma de pago"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Float.class
+                java.lang.Object.class, java.lang.String.class, java.lang.Float.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, true, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -643,11 +721,74 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable2);
+        jScrollPane2.setViewportView(TablaVentasCliente);
 
         jLabel15.setText("Ver");
 
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "TODAS", "PAGAS", "IMPAGAS" }));
+
+        jLabel13.setText("Pagos");
+
+        TableCuotasVentaCliente.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "ID", "Fecha a pagar", "Fecha pago", "Estado", "Monto"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane3.setViewportView(TableCuotasVentaCliente);
+
+        BtnPagarCuota.setText("Pagar cuota");
+        BtnPagarCuota.setEnabled(false);
+
+        BtnEliminarPago.setText("Eliminar pago");
+        BtnEliminarPago.setEnabled(false);
+
+        BtnModificarPago.setText("Modificar pago");
+        BtnModificarPago.setEnabled(false);
+
+        BtnVerTodosPagos.setText("Ver todos");
+
+        jLabel16.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
+        jLabel16.setText("Compro por $");
+
+        LblCompoPor.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
+        LblCompoPor.setForeground(new java.awt.Color(21, 192, 65));
+        LblCompoPor.setText("xxxx");
+
+        jLabel18.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
+        jLabel18.setText("Saldo $");
+
+        BtnNuevaVenta.setText("Nueva venta");
+        BtnNuevaVenta.setEnabled(false);
+
+        BtnModificarVenta.setText("Modificar venta");
+        BtnModificarVenta.setEnabled(false);
+
+        BtnEliminarVenta.setText("Eliminar venta");
+        BtnEliminarVenta.setEnabled(false);
+
+        BtnCrearNuevoPago.setText("Crear nueva cuota");
+        BtnCrearNuevoPago.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -657,11 +798,36 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2)
+                    .addComponent(jScrollPane3)
                     .addGroup(jPanel4Layout.createSequentialGroup()
-                        .addComponent(jLabel15)
+                        .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel15)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jLabel13)
+                            .addComponent(jLabel18)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LblCompoPor))
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(BtnNuevaVenta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnModificarVenta)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(BtnEliminarVenta)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(jPanel4Layout.createSequentialGroup()
+                        .addComponent(BtnPagarCuota)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addComponent(BtnCrearNuevoPago, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnEliminarPago)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(BtnModificarPago)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BtnVerTodosPagos)))
                 .addContainerGap())
         );
         jPanel4Layout.setVerticalGroup(
@@ -673,7 +839,29 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(170, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnNuevaVenta)
+                    .addComponent(BtnModificarVenta)
+                    .addComponent(BtnEliminarVenta))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel13)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(BtnPagarCuota)
+                    .addComponent(BtnEliminarPago)
+                    .addComponent(BtnModificarPago)
+                    .addComponent(BtnVerTodosPagos)
+                    .addComponent(BtnCrearNuevoPago))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel16)
+                    .addComponent(LblCompoPor))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel18)
+                .addGap(57, 57, 57))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -693,17 +881,12 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED))
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 150, Short.MAX_VALUE)))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -711,11 +894,22 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BtnCrearNuevoPago;
     private javax.swing.JButton BtnEliminar;
+    private javax.swing.JButton BtnEliminarPago;
+    private javax.swing.JButton BtnEliminarVenta;
     private javax.swing.JButton BtnModificar;
+    private javax.swing.JButton BtnModificarPago;
+    private javax.swing.JButton BtnModificarVenta;
+    private javax.swing.JButton BtnNuevaVenta;
     private javax.swing.JButton BtnNuevo;
+    private javax.swing.JButton BtnPagarCuota;
+    private javax.swing.JButton BtnVerTodosPagos;
     private javax.swing.JLabel CuitLbl;
+    private javax.swing.JLabel LblCompoPor;
     private javax.swing.JTable TablaClientes;
+    private javax.swing.JTable TablaVentasCliente;
+    private javax.swing.JTable TableCuotasVentaCliente;
     private javax.swing.JTextField apellidoTxt;
     private javax.swing.JComboBox buscarBox;
     private javax.swing.JTextField busquedaClientesTxt;
@@ -730,8 +924,11 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -746,7 +943,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTextField mailTxt;
     private javax.swing.JTextField nombreTxt;
     private javax.swing.JComboBox razonBox;

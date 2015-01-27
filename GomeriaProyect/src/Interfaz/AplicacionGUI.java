@@ -32,6 +32,26 @@ public class AplicacionGUI extends javax.swing.JFrame {
         return ContenedorDesk;
     }
 
+    public JButton getArticulosBtn() {
+        return articulosBtn;
+    }
+
+    public JButton getCargarCompraBtn() {
+        return cargarCompraBtn;
+    }
+
+    public JButton getComprasBtn() {
+        return comprasBtn;
+    }
+
+    public JButton getCargarVentaBtn() {
+        return cargarVentaBtn;
+    }
+
+    public JButton getVentasBtn() {
+        return ventasBtn;
+    }
+
     
     
     /**
@@ -47,7 +67,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
         clientesBtn = new javax.swing.JButton();
         articulosBtn = new javax.swing.JButton();
         ventasBtn = new javax.swing.JButton();
-        crearVentaBtn = new javax.swing.JButton();
+        cargarVentaBtn = new javax.swing.JButton();
         cargarCompraBtn = new javax.swing.JButton();
         comprasBtn = new javax.swing.JButton();
         proveedoresBtn = new javax.swing.JButton();
@@ -77,7 +97,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
 
         ventasBtn.setText("Ventas");
 
-        crearVentaBtn.setText("Cargar venta");
+        cargarVentaBtn.setText("Cargar venta");
 
         cargarCompraBtn.setText("Cargar compra");
 
@@ -92,7 +112,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
             .addComponent(clientesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(articulosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(ventasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(crearVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(cargarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
             .addComponent(cargarCompraBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(comprasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(proveedoresBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -104,7 +124,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(articulosBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(crearVentaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(cargarVentaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(ventasBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 68, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -201,6 +221,8 @@ public class AplicacionGUI extends javax.swing.JFrame {
     
     public void setActionListener(ActionListener lis) {
         this.clientesBtn.addActionListener(lis);
+        this.cargarVentaBtn.addActionListener(lis);
+        this.articulosBtn.addActionListener(lis);
     }
     /**
      * @param args the command line arguments
@@ -243,12 +265,12 @@ public class AplicacionGUI extends javax.swing.JFrame {
     private javax.swing.JMenuItem cambiosEmail;
     private javax.swing.JMenuItem cargarBackup;
     private javax.swing.JButton cargarCompraBtn;
+    private javax.swing.JButton cargarVentaBtn;
     private javax.swing.JMenuItem cerrarSesion;
     private javax.swing.JButton clientesBtn;
     private javax.swing.JButton comprasBtn;
     private javax.swing.JMenuItem configServer;
     private javax.swing.JMenuItem crearBackup;
-    private javax.swing.JButton crearVentaBtn;
     private javax.swing.JMenuItem enviar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;

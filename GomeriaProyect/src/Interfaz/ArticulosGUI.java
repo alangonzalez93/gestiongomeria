@@ -5,19 +5,197 @@
  */
 package Interfaz;
 
+import Controladores.ControladorArticulosGUI;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JSpinner;
+import javax.swing.JTable;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author alan
  */
 public class ArticulosGUI extends javax.swing.JInternalFrame {
 
+     private DefaultTableModel TablaArticulosDefault;
     /**
      * Creates new form ArticulosGUI
      */
     public ArticulosGUI() {
         initComponents();
+        TablaArticulosDefault = (DefaultTableModel) TablaArticulos.getModel();
     }
 
+    public DefaultTableModel getTablaArticulosDefault() {
+        return TablaArticulosDefault;
+    }
+
+    public JTable getTablaArticulos() {
+        return TablaArticulos;
+    }
+
+    public JTextField getIdTxt() {
+        return IdTxt;
+    }
+
+    public JComboBox getArticuloBox() {
+        return articuloBox;
+    }
+
+    public JComboBox getBusquedaArticuloBox() {
+        return busquedaArticuloBox;
+    }
+
+    public JComboBox getBusquedaMarcaBox() {
+        return busquedaMarcaBox;
+    }
+
+    public JTextField getBusquedaMedidaTxt() {
+        return busquedaMedidaTxt;
+    }
+
+    public JSpinner getBusquedaStockSp() {
+        return busquedaStockSp;
+    }
+
+    public JComboBox getBusquedaVehiculoBox() {
+        return busquedaVehiculoBox;
+    }
+
+    public JTextArea getDescripcionArea() {
+        return descripcionArea;
+    }
+
+    public JTextField getDisenioTxt() {
+        return DisenioTxt;
+    }
+
+    public JButton getEliminarBtn() {
+        return eliminarBtn;
+    }
+
+    public JLabel getEncontradosLbl() {
+        return encontradosLbl;
+    }
+
+    public JComboBox getMarcaBox() {
+        return marcaBox;
+    }
+
+    public JTextField getMedidaTxt() {
+        return medidaTxt;
+    }
+
+    public JButton getModificarBtn() {
+        return modificarBtn;
+    }
+
+    public JButton getNuevoBtn() {
+        return nuevoBtn;
+    }
+
+    public JTextField getPrecioCompraTxt() {
+        return precioCompraTxt;
+    }
+
+    public JTextField getPrecioVentaTxt() {
+        return precioVentaTxt;
+    }
+
+    public JSpinner getStockSp() {
+        return stockSp;
+    }
+
+    public JComboBox getVehiculoBox() {
+        return vehiculoBox;
+    }
+
+    public JTextField getVendidosTxt() {
+        return vendidosTxt;
+    }
+
+    public void ApreteBtnNuevoModificar(){
+        articuloBox.setEnabled(true);
+        vehiculoBox.setEnabled(true);
+        marcaBox.setEnabled(true);
+        medidaTxt.setEnabled(true);
+        DisenioTxt.setEnabled(true);
+        precioCompraTxt.setEnabled(true);
+        precioVentaTxt.setEnabled(true);
+        stockSp.setEnabled(true);
+        descripcionArea.setEnabled(true);
+        modificarBtn.setEnabled(false);
+        nuevoBtn.setText("Guardar");
+        eliminarBtn.setText("Cancelar");
+        eliminarBtn.setEnabled(true);
+    }
+    
+    public void EstadoInicial(){
+        articuloBox.setEnabled(false);
+        vehiculoBox.setEnabled(false);
+        marcaBox.setEnabled(false);
+        medidaTxt.setEnabled(false);
+        DisenioTxt.setEnabled(false);
+        precioCompraTxt.setEnabled(false);
+        precioVentaTxt.setEnabled(false);
+        stockSp.setEnabled(false);
+        descripcionArea.setEnabled(false);
+        nuevoBtn.setText("Nuevo");
+        eliminarBtn.setText("Eliminar");
+        eliminarBtn.setEnabled(false);
+        modificarBtn.setEnabled(false);
+    }
+    
+    public void EstadoLuegoDeModificar(){
+        articuloBox.setEnabled(false);
+        vehiculoBox.setEnabled(false);
+        marcaBox.setEnabled(false);
+        medidaTxt.setEnabled(false);
+        DisenioTxt.setEnabled(false);
+        precioCompraTxt.setEnabled(false);
+        precioVentaTxt.setEnabled(false);
+        stockSp.setEnabled(false);
+        descripcionArea.setEnabled(false);
+        nuevoBtn.setText("Nuevo");
+        eliminarBtn.setText("Eliminar");
+        eliminarBtn.setEnabled(true);
+        modificarBtn.setEnabled(true);
+    }
+    
+    public void EstadoArticuloSeleccionado(){
+        articuloBox.setEnabled(false);
+        vehiculoBox.setEnabled(false);
+        marcaBox.setEnabled(false);
+        medidaTxt.setEnabled(false);
+        DisenioTxt.setEnabled(false);
+        precioCompraTxt.setEnabled(false);
+        precioVentaTxt.setEnabled(false);
+        stockSp.setEnabled(false);
+        descripcionArea.setEnabled(false);
+        nuevoBtn.setText("Nuevo");
+        eliminarBtn.setText("Eliminar");
+        eliminarBtn.setEnabled(true);
+        modificarBtn.setEnabled(true);
+    }
+    
+    public void LimpiarCampos(){
+        articuloBox.setSelectedIndex(0);
+        vehiculoBox.setSelectedIndex(0);
+        marcaBox.setSelectedIndex(0);
+        medidaTxt.setText("");
+        DisenioTxt.setText("");
+        descripcionArea.setText("");
+        precioCompraTxt.setText("");
+        precioVentaTxt.setText("");
+        stockSp.setValue(0);
+        vendidosTxt.setText("");
+        IdTxt.setText("");
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +207,7 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        TablaArticulos = new javax.swing.JTable();
         jLabel1 = new javax.swing.JLabel();
         busquedaVehiculoBox = new javax.swing.JComboBox();
         jLabel2 = new javax.swing.JLabel();
@@ -50,7 +228,6 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         jLabel8 = new javax.swing.JLabel();
         marcaBox = new javax.swing.JComboBox();
         jLabel9 = new javax.swing.JLabel();
-        disenioBox = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
         medidaTxt = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
@@ -63,14 +240,23 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         descripcionArea = new javax.swing.JTextArea();
         jLabel16 = new javax.swing.JLabel();
-        vendidosTtx = new javax.swing.JTextField();
+        vendidosTxt = new javax.swing.JTextField();
         nuevoBtn = new javax.swing.JButton();
         modificarBtn = new javax.swing.JButton();
         eliminarBtn = new javax.swing.JButton();
+        IdTxt = new javax.swing.JTextField();
+        DisenioTxt = new javax.swing.JTextField();
+
+        setClosable(true);
+        setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
+        setIconifiable(true);
+        setMaximizable(true);
+        setResizable(true);
+        setTitle("Gestion de articulos");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Articulos"));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        TablaArticulos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
                 {null, null, null, null, null, null},
@@ -81,22 +267,15 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
                 "ID", "Marca", "Disenio", "Medida", "Stock", "Precio"
             }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Float.class
-            };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false, false, false
             };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
             }
         });
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(TablaArticulos);
 
         jLabel1.setText("Vehiculo");
 
@@ -182,7 +361,7 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
                     .addComponent(jLabel5)
                     .addComponent(encontradosLbl))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 227, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 243, Short.MAX_VALUE)
                 .addGap(33, 33, 33))
         );
 
@@ -190,24 +369,32 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
 
         jLabel6.setText("Articulo");
 
-        articuloBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "NEUMATICO", "RUEDA", "CAMARA" }));
+        articuloBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "NEUMATICO", "RUEDA", "CAMARA" }));
+        articuloBox.setEnabled(false);
 
         jLabel7.setText("Vehiculo");
 
-        vehiculoBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "AUTO", "CAMIONETA", "CAMION", "MOTO", "VIAL", "AGRICOLA DELANTERO", "AGRICOLA TRASERO" }));
+        vehiculoBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "AUTO", "CAMIONETA", "CAMION", "MOTO", "VIAL", "AGRICOLA DELANTERO", "AGRICOLA TRASERO" }));
+        vehiculoBox.setEnabled(false);
 
         jLabel8.setText("Marca");
 
-        marcaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "PIRELLI", "FATE", "MICHELIN", "FIRESTONE", "BRIDGESTONE", "KUMHO", "SUMITOMO", "DUNLOP" }));
+        marcaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Seleccionar", "PIRELLI", "FATE", "MICHELIN", "FIRESTONE", "BRIDGESTONE", "KUMHO", "SUMITOMO", "DUNLOP" }));
+        marcaBox.setEnabled(false);
 
         jLabel9.setText("Disenio");
 
         jLabel10.setText("Medida");
 
+        medidaTxt.setEnabled(false);
+
         jLabel11.setText("Precio de compra");
+
+        precioVentaTxt.setEnabled(false);
 
         jLabel12.setText("Precio de venta");
 
+        precioCompraTxt.setEnabled(false);
         precioCompraTxt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 precioCompraTxtActionPerformed(evt);
@@ -216,19 +403,30 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
 
         jLabel13.setText("Stock");
 
+        stockSp.setEnabled(false);
+
         jLabel14.setText("Descripcion");
 
         descripcionArea.setColumns(20);
         descripcionArea.setRows(5);
+        descripcionArea.setEnabled(false);
         jScrollPane2.setViewportView(descripcionArea);
 
         jLabel16.setText("Cantidad vendida");
 
+        vendidosTxt.setEnabled(false);
+
         nuevoBtn.setText("Nuevo");
 
         modificarBtn.setText("Modificar");
+        modificarBtn.setEnabled(false);
 
         eliminarBtn.setText("Eliminar");
+        eliminarBtn.setEnabled(false);
+
+        IdTxt.setEnabled(false);
+
+        DisenioTxt.setEnabled(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -238,10 +436,23 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel16)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(jLabel7))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(vendidosTtx)
-                        .addGap(301, 301, 301))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(articuloBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(vehiculoBox, 0, 172, Short.MAX_VALUE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel11)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(precioCompraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(27, 27, 27)
+                                .addComponent(IdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(6, 6, 6))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
@@ -250,40 +461,31 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
                                     .addComponent(jLabel9))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(disenioBox)
-                                        .addGap(18, 18, 18))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(marcaBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addGap(20, 20, 20)))
+                                    .addComponent(marcaBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(DisenioTxt))
+                                .addGap(20, 20, 20))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel16)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(vendidosTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jLabel10)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(medidaTxt))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel10)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(medidaTxt))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addComponent(jLabel13)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(stockSp, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(0, 0, Short.MAX_VALUE))
+                                        .addComponent(stockSp, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel12)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(precioVentaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel6)
-                                    .addComponent(jLabel7))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(articuloBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(vehiculoBox, 0, 172, Short.MAX_VALUE))
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel11)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(precioCompraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(24, 24, 24)))
+                                        .addComponent(precioVentaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 88, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 234, Short.MAX_VALUE)
                     .addComponent(jLabel14))
@@ -303,36 +505,41 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel6)
                             .addComponent(articuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(precioCompraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel11)
-                            .addComponent(jLabel14))
+                            .addComponent(jLabel14)
+                            .addComponent(IdTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jScrollPane2)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel7)
                                     .addComponent(vehiculoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel12)
-                                    .addComponent(precioVentaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(jLabel11)
+                                    .addComponent(precioCompraTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel8)
                                     .addComponent(marcaBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(medidaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel10))
+                                    .addComponent(jLabel12)
+                                    .addComponent(precioVentaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel9)
-                                        .addComponent(disenioBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(stockSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(jLabel13)))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED, 22, Short.MAX_VALUE)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jLabel16)
-                                    .addComponent(vendidosTtx, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                            .addComponent(jScrollPane2)))
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10)
+                                    .addComponent(medidaTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(DisenioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(0, 0, Short.MAX_VALUE)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel13)
+                                            .addComponent(stockSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(12, 12, 12))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                            .addComponent(jLabel16)
+                                            .addComponent(vendidosTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(0, 0, Short.MAX_VALUE))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
                         .addComponent(nuevoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -373,6 +580,9 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField DisenioTxt;
+    private javax.swing.JTextField IdTxt;
+    private javax.swing.JTable TablaArticulos;
     private javax.swing.JComboBox articuloBox;
     private javax.swing.JComboBox busquedaArticuloBox;
     private javax.swing.JComboBox busquedaMarcaBox;
@@ -380,7 +590,6 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
     private javax.swing.JSpinner busquedaStockSp;
     private javax.swing.JComboBox busquedaVehiculoBox;
     private javax.swing.JTextArea descripcionArea;
-    private javax.swing.JTextField disenioBox;
     private javax.swing.JButton eliminarBtn;
     private javax.swing.JLabel encontradosLbl;
     private javax.swing.JLabel jLabel1;
@@ -403,7 +612,6 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTable jTable1;
     private javax.swing.JComboBox marcaBox;
     private javax.swing.JTextField medidaTxt;
     private javax.swing.JButton modificarBtn;
@@ -412,6 +620,12 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
     private javax.swing.JTextField precioVentaTxt;
     private javax.swing.JSpinner stockSp;
     private javax.swing.JComboBox vehiculoBox;
-    private javax.swing.JTextField vendidosTtx;
+    private javax.swing.JTextField vendidosTxt;
     // End of variables declaration//GEN-END:variables
+
+    public void setActionListener(ActionListener lis) {
+        nuevoBtn.addActionListener(lis);
+        modificarBtn.addActionListener(lis);
+        eliminarBtn.addActionListener(lis);
+    }
 }

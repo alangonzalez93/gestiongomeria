@@ -39,6 +39,7 @@ CREATE  TABLE `gomeria`.`articulos` (
   `descripcion` VARCHAR(200) NULL ,
   `tipo` VARCHAR(30) NULL ,
   `vehiculo` VARCHAR(30) NULL ,
+  `vendidos` INT NULL DEFAULT 0,
   PRIMARY KEY (`id`) );
 
 
@@ -68,6 +69,8 @@ create table gomeria.ventas (
     cliente_id integer,
     fecha date not null,
     cant_cuotas INT,
+    monto_cuotas FLOAT,
+    numero_cheque varchar(10),
     forma_pago varchar(20),
     PRIMARY KEY (`id`) );
 
@@ -85,6 +88,7 @@ create table articulos_ventas (
     venta_id integer,
     articulo_id integer,
     cantidad integer not null,
+    precio_final integer,
 	  primary key(id) );
 
 
@@ -106,9 +110,7 @@ CREATE  TABLE `gomeria`.`cobros` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `fecha` DATE NULL DEFAULT NULL,
   `fecha_pago` DATE NULL DEFAULT NULL,
-  `monto` FLOAT NULL,
-  `monto_pago` FLOAT NULL,
   `estado` VARCHAR(10),
-  `descripcion` VARCHAR(200),
+  `monto` FLOAT NULL,
   `venta_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`) );

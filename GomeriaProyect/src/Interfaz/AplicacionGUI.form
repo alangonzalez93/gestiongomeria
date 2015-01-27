@@ -133,7 +133,7 @@
               <Component id="clientesBtn" max="32767" attributes="0"/>
               <Component id="articulosBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="ventasBtn" alignment="0" max="32767" attributes="0"/>
-              <Component id="crearVentaBtn" alignment="0" pref="100" max="32767" attributes="0"/>
+              <Component id="cargarVentaBtn" alignment="0" pref="100" max="32767" attributes="0"/>
               <Component id="cargarCompraBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="comprasBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="proveedoresBtn" alignment="0" max="32767" attributes="0"/>
@@ -146,7 +146,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="articulosBtn" min="-2" pref="68" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="crearVentaBtn" min="-2" pref="68" max="-2" attributes="0"/>
+                  <Component id="cargarVentaBtn" min="-2" pref="68" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="ventasBtn" min="-2" pref="68" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
@@ -176,7 +176,7 @@
             <Property name="text" type="java.lang.String" value="Ventas"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="crearVentaBtn">
+        <Component class="javax.swing.JButton" name="cargarVentaBtn">
           <Properties>
             <Property name="text" type="java.lang.String" value="Cargar venta"/>
           </Properties>
