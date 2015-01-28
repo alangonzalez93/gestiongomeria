@@ -238,7 +238,9 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
             Object row[] = new Object[5];
             row[0] = c.getInteger("id");
             row[1] = dateToMySQLDate(c.getDate("fecha"),true);
-            row[2] = dateToMySQLDate(c.getDate("fecha_pago"),true);
+            if(c.getDate("fecha_pago") != null){
+                row[2] = dateToMySQLDate(c.getDate("fecha_pago"),true);
+            }
             row[3] = c.getString("estado");
             row[4] = c.getBigDecimal("monto");
             realizarPagoGUI.getCuotasTableDefault().addRow(row);
@@ -289,8 +291,8 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
             if (row != -1) {
                 if (PagarCuota(row)) {
                     JOptionPane.showMessageDialog(cargarVentaGUI, "Cuota pagada exitosamente!");
-                    realizarPagoGUI.dispose();
-                    cargarVentaGUI.dispose();
+                    realizarPagoGUI.setVisible(false);
+                    cargarVentaGUI.setVisible(false);
                 } else {
                     JOptionPane.showMessageDialog(cargarVentaGUI, "Error, no se pudo ejecutar la operacion.", "Error!", JOptionPane.ERROR_MESSAGE);
                 }
@@ -299,8 +301,8 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
             }
         }
         if (e.getSource().equals(realizarPagoGUI.getBtnCancelar())) {
-            realizarPagoGUI.dispose();
-            cargarVentaGUI.dispose();
+            realizarPagoGUI.setVisible(false);
+            cargarVentaGUI.setVisible(false);
         }
         /////////////Fin Controlador RealizarPagoGUI/////////////////
     }

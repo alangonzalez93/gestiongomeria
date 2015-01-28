@@ -31,6 +31,22 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         TablaClientesDefault = (DefaultTableModel) TablaClientes.getModel();
         TablaVentaClientesDefault = (DefaultTableModel) TablaVentasCliente.getModel();
         TablaCuotasVentasClientesDefault = (DefaultTableModel) TableCuotasVentaCliente.getModel();
+        
+        TablaClientes.getColumnModel().getColumn(0).setPreferredWidth(20);
+        TablaClientes.getColumnModel().getColumn(1).setPreferredWidth(200);
+        TablaClientes.getColumnModel().getColumn(2).setPreferredWidth(170);
+        
+        TablaVentasCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
+        TablaVentasCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+        TablaVentasCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        TablaVentasCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
+        
+        TableCuotasVentaCliente.getColumnModel().getColumn(0).setPreferredWidth(50);
+        TableCuotasVentaCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
+        TableCuotasVentaCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
+        TableCuotasVentaCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
+        TableCuotasVentaCliente.getColumnModel().getColumn(4).setPreferredWidth(100);
+        
     }
 
     public DefaultTableModel getTablaClientesDefault() {
@@ -329,8 +345,8 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         return BtnModificarVenta;
     }
 
-    public JButton getBtnNuevaVenta() {
-        return BtnNuevaVenta;
+    public JButton getBtnDetalles() {
+        return BtnDetalles;
     }
     
     public void setActionListener(ActionListener lis) {
@@ -342,7 +358,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         BtnModificarPago.addActionListener(lis);
         BtnPagarCuota.addActionListener(lis);
         BtnVerTodosPagos.addActionListener(lis);
-        BtnNuevaVenta.addActionListener(lis);
+        BtnDetalles.addActionListener(lis);
         BtnEliminarVenta.addActionListener(lis);
         BtnModificarVenta.addActionListener(lis);
     }
@@ -407,10 +423,10 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         jLabel16 = new javax.swing.JLabel();
         LblCompoPor = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
-        BtnNuevaVenta = new javax.swing.JButton();
         BtnModificarVenta = new javax.swing.JButton();
         BtnEliminarVenta = new javax.swing.JButton();
         BtnCrearNuevoPago = new javax.swing.JButton();
+        BtnDetalles = new javax.swing.JButton();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -778,9 +794,6 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         jLabel18.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
         jLabel18.setText("Saldo $");
 
-        BtnNuevaVenta.setText("Nueva venta");
-        BtnNuevaVenta.setEnabled(false);
-
         BtnModificarVenta.setText("Modificar venta");
         BtnModificarVenta.setEnabled(false);
 
@@ -789,6 +802,9 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
         BtnCrearNuevoPago.setText("Crear nueva cuota");
         BtnCrearNuevoPago.setEnabled(false);
+
+        BtnDetalles.setText("Detalles");
+        BtnDetalles.setEnabled(false);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -812,7 +828,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(LblCompoPor))
                             .addGroup(jPanel4Layout.createSequentialGroup()
-                                .addComponent(BtnNuevaVenta)
+                                .addComponent(BtnDetalles, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(BtnModificarVenta)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -841,13 +857,13 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(BtnNuevaVenta)
                     .addComponent(BtnModificarVenta)
-                    .addComponent(BtnEliminarVenta))
+                    .addComponent(BtnEliminarVenta)
+                    .addComponent(BtnDetalles))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 159, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnPagarCuota)
@@ -895,13 +911,13 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnCrearNuevoPago;
+    private javax.swing.JButton BtnDetalles;
     private javax.swing.JButton BtnEliminar;
     private javax.swing.JButton BtnEliminarPago;
     private javax.swing.JButton BtnEliminarVenta;
     private javax.swing.JButton BtnModificar;
     private javax.swing.JButton BtnModificarPago;
     private javax.swing.JButton BtnModificarVenta;
-    private javax.swing.JButton BtnNuevaVenta;
     private javax.swing.JButton BtnNuevo;
     private javax.swing.JButton BtnPagarCuota;
     private javax.swing.JButton BtnVerTodosPagos;

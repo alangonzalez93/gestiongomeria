@@ -30,12 +30,28 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     private DefaultTableModel tablaArticulosDefault;
     private DefaultTableModel tablaVentaDefault;
     
+    
     public CargarVentaGUI() {
         initComponents();
         tablaClientesDefault = (DefaultTableModel) tablaClientes.getModel();
         tablaArticulosDefault = (DefaultTableModel) tablaArticulos.getModel();
         tablaVentaDefault = (DefaultTableModel) tablaVenta.getModel();
         calendarioTxt.setDate(Calendar.getInstance().getTime());
+        tablaVenta.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tablaVenta.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tablaVenta.getColumnModel().getColumn(2).setPreferredWidth(30);
+        tablaVenta.getColumnModel().getColumn(3).setPreferredWidth(40);
+        tablaVenta.getColumnModel().getColumn(4).setPreferredWidth(40);
+        
+        tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(200);
+        tablaClientes.getColumnModel().getColumn(2).setPreferredWidth(170);
+        
+        tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(20);
+        tablaArticulos.getColumnModel().getColumn(1).setPreferredWidth(100);
+        tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(100);
+        tablaArticulos.getColumnModel().getColumn(3).setPreferredWidth(100);
+        tablaArticulos.getColumnModel().getColumn(4).setPreferredWidth(30);
     }
 
     public DefaultTableModel getTablaClientesDefault() {

@@ -581,7 +581,7 @@
                                   <Component id="LblCompoPor" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <Group type="102" alignment="0" attributes="0">
-                                  <Component id="BtnNuevaVenta" min="-2" max="-2" attributes="0"/>
+                                  <Component id="BtnDetalles" min="-2" pref="80" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
                                   <Component id="BtnModificarVenta" min="-2" max="-2" attributes="0"/>
                                   <EmptySpace max="-2" attributes="0"/>
@@ -618,14 +618,14 @@
                   <Component id="jScrollPane2" min="-2" pref="220" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="BtnNuevaVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="BtnModificarVenta" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="BtnEliminarVenta" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="BtnDetalles" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="jLabel13" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Component id="jScrollPane3" pref="0" max="32767" attributes="0"/>
+                  <Component id="jScrollPane3" pref="159" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="BtnPagarCuota" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -820,12 +820,6 @@
             <Property name="text" type="java.lang.String" value="Saldo $"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="BtnNuevaVenta">
-          <Properties>
-            <Property name="text" type="java.lang.String" value="Nueva venta"/>
-            <Property name="enabled" type="boolean" value="false"/>
-          </Properties>
-        </Component>
         <Component class="javax.swing.JButton" name="BtnModificarVenta">
           <Properties>
             <Property name="text" type="java.lang.String" value="Modificar venta"/>
@@ -841,6 +835,12 @@
         <Component class="javax.swing.JButton" name="BtnCrearNuevoPago">
           <Properties>
             <Property name="text" type="java.lang.String" value="Crear nueva cuota"/>
+            <Property name="enabled" type="boolean" value="false"/>
+          </Properties>
+        </Component>
+        <Component class="javax.swing.JButton" name="BtnDetalles">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Detalles"/>
             <Property name="enabled" type="boolean" value="false"/>
           </Properties>
         </Component>

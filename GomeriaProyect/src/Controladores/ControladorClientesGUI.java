@@ -3,9 +3,13 @@ package Controladores;
 import ABMs.ABMClientes;
 import ABMs.ABMCobros;
 import Busqueda.Busqueda;
+import Interfaz.AplicacionGUI;
 import Interfaz.CargarVentaGUI;
 import Interfaz.ClientesGUI;
+import Interfaz.DetalleVentaGUI;
 import Interfaz.NuevoPagoGUI;
+import Modelos.Articulo;
+import Modelos.ArticulosVentas;
 import Modelos.Cliente;
 import Modelos.Cobro;
 import Modelos.Venta;
@@ -40,9 +44,10 @@ public class ControladorClientesGUI implements ActionListener {
     Busqueda busquedaClientes;
     boolean apreteModificar = false;
     NuevoPagoGUI nuevoPagoGUI;
-            
+    DetalleVentaGUI detallesVentaGUI;
+    AplicacionGUI aplicacionGUI;
 
-    public ControladorClientesGUI(ClientesGUI cg) {
+    public ControladorClientesGUI(ClientesGUI cg, AplicacionGUI apliGUI) {
         this.clientesGUI = cg;
         clientesGUI.setActionListener(this);
         abmClientes = new ABMClientes();
@@ -50,6 +55,7 @@ public class ControladorClientesGUI implements ActionListener {
         busquedaClientes = new Busqueda();
         nuevoPagoGUI = new NuevoPagoGUI();
         nuevoPagoGUI.setActionListener(this);
+        aplicacionGUI = apliGUI;
         this.clientesGUI.getRazonBox().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 if (clientesGUI.getRazonBox().getSelectedItem().equals("RESP. INSC.")) {
@@ -66,11 +72,6 @@ public class ControladorClientesGUI implements ActionListener {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 tablaClienteMouseClicked(evt);
-                if(clientesGUI.getTablaClientes().getSelectedRowCount()  == 1){
-                    clientesGUI.getBtnNuevaVenta().setEnabled(true);
-                }else{
-                    clientesGUI.getBtnNuevaVenta().setEnabled(false);
-                }
             }
         });
         clientesGUI.getTablaVentasCliente().addMouseListener(new java.awt.event.MouseAdapter() {
@@ -81,10 +82,12 @@ public class ControladorClientesGUI implements ActionListener {
                     clientesGUI.getBtnCrearNuevoPago().setEnabled(true);
                     clientesGUI.getBtnEliminarVenta().setEnabled(true);
                     clientesGUI.getBtnModificarVenta().setEnabled(true);
+                    clientesGUI.getBtnDetalles().setEnabled(true);
                 }else{
                     clientesGUI.getBtnCrearNuevoPago().setEnabled(false);
                     clientesGUI.getBtnEliminarVenta().setEnabled(false);
                     clientesGUI.getBtnModificarVenta().setEnabled(false);
+                    clientesGUI.getBtnDetalles().setEnabled(false);
                 }
             }
         });
@@ -340,14 +343,15 @@ public class ControladorClientesGUI implements ActionListener {
             }
         }
         //////////////Botones ventas//////////////////
-        if (e.getSource().equals(clientesGUI.getBtnNuevaVenta())) {
-            if(clientesGUI.getTablaClientes().getSelectedRowCount() == 1){
-                CargarVentaGUI cargarVenta = new CargarVentaGUI();
-                cargarVenta.setVisible(true);
-                cargarVenta.getNombreClienteTxt().setText(clientesGUI.getApellidoTxt().getText()+", "+clientesGUI.getNombreTxt().getText());
-                cargarVenta.getIdClienteTxt().setText(clientesGUI.getIdTxt().getText());
+        if (e.getSource().equals(clientesGUI.getBtnDetalles())) {
+            if(clientesGUI.getTablaVentasCliente().getSelectedRowCount() == 1){
+                int r = clientesGUI.getTablaVentasCliente().getSelectedRow();
+                detallesVentaGUI = new DetalleVentaGUI(aplicacionGUI,true);
+                ObtenerDetallesVenta(r);
+                detallesVentaGUI.setLocationRelativeTo(null);
+                detallesVentaGUI.setVisible(true);
             }else{
-                JOptionPane.showMessageDialog(clientesGUI, "Debe seleccionar un cliente!", "Atencion!", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(clientesGUI, "Debe seleccionar una venta!", "Atencion!", JOptionPane.WARNING_MESSAGE);
             }
         }
         //////////////Fin botones ventas/////////////
@@ -402,5 +406,41 @@ public class ControladorClientesGUI implements ActionListener {
         c.set("venta_id",clientesGUI.getTablaVentaClientesDefault().getValueAt(row, 0));
         return c;
     }
+    private void ObtenerDetallesVenta(int row){
+        abrirBase();
+        int idVenta = (int) clientesGUI.getTablaVentaClientesDefault().getValueAt(row, 0);
+        Venta v = Venta.first("id = ?", idVenta);
+        detallesVentaGUI.getLblNombreCliente().setText(clientesGUI.getApellidoTxt().getText()+", "+clientesGUI.getNombreTxt().getText());
+        detallesVentaGUI.getLblFecha().setText(dateToMySQLDate(v.getDate("fecha"),true));
+        detallesVentaGUI.getLblFormaPago().setText(v.getString("forma_pago"));
+        detallesVentaGUI.getLblMonto().setText(v.getString("monto"));
+        LazyList<Cobro> listaCobros = Cobro.where("venta_id = ?", idVenta);
+        int montoPagado = 0;
+        for(Cobro c :listaCobros){
+            if(c.getString("estado").equals("PAGO")){
+                montoPagado = montoPagado+c.getInteger("monto");
+            }
+        }
+        detallesVentaGUI.getLblMontoPagado().setText(String.valueOf(montoPagado));
+        int adeuda = v.getInteger("monto") - montoPagado;
+        detallesVentaGUI.getLblAdeuda().setText(String.valueOf(adeuda));
+        LazyList<ArticulosVentas> listaArticulosVentas = ArticulosVentas.where("venta_id = ?", idVenta);
+        detallesVentaGUI.getTablaProductosVendidosDefault().setRowCount(0);
+        for(ArticulosVentas av : listaArticulosVentas){
+            Object[] fila = new Object[5];
+            fila[0] = av.get("articulo_id");
+            fila[2] = av.getBigDecimal("cantidad");
+            fila[3] = av.getBigDecimal("precio_final");
+            fila[4] = av.getBigDecimal("cantidad").multiply(av.getBigDecimal("precio_final"));
+            Articulo articulo = Articulo.first("id = ?", av.get("articulo_id"));
+            if ("CAMARA".equals(articulo.getString("tipo"))) {
+                fila[1] = articulo.getString("tipo") + " " + articulo.getString("marca") + " " + articulo.getString("medida");
+            } else {
+                fila[1] = articulo.getString("tipo") + " " + articulo.getString("marca") + " " + articulo.getString("disenio") + " " + articulo.getString("medida");
+            }
+            detallesVentaGUI.getTablaProductosVendidosDefault().addRow(fila);
+        }
+    }
+    
 
 }
