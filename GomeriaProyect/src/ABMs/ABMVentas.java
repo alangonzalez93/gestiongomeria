@@ -15,6 +15,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
 import org.javalite.activejdbc.Base;
+import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Model;
 
 /**
@@ -63,7 +64,10 @@ public class ABMVentas {
     public boolean Eliminar(Venta v){
         abrirBase();
         Base.openTransaction();
+        int id = v.getInteger("id");
         if(v.delete()){
+            eliminarArticulosVentas(id);
+            Cobro.delete("venta_id = ?", id);
             Base.commitTransaction();
             Base.close();
             return true;
@@ -71,6 +75,19 @@ public class ABMVentas {
         Base.commitTransaction();
         Base.close();
         return false;
+    }
+    
+    public void eliminarArticulosVentas(int ventaId){
+        LazyList<ArticulosVentas> lista = ArticulosVentas.where("venta_id = ?", ventaId);
+        for(ArticulosVentas av : lista){
+            Articulo a = Articulo.first("id = ?", av.get("articulo_id"));
+            if(a!= null){
+                int nuevoStock = a.getInteger("stock") + av.getInteger("cantidad");
+                a.setInteger("stock", nuevoStock);
+                a.saveIt();
+            }
+        }
+        ArticulosVentas.delete("venta_id = ?", ventaId);
     }
     
     public boolean cargarArticulosVentas(LinkedList<Triple> listaArticulos){

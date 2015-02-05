@@ -2,6 +2,7 @@ package Controladores;
 
 import ABMs.ABMClientes;
 import ABMs.ABMCobros;
+import ABMs.ABMVentas;
 import Busqueda.Busqueda;
 import Interfaz.AplicacionGUI;
 import Interfaz.CargarVentaGUI;
@@ -41,6 +42,7 @@ public class ControladorClientesGUI implements ActionListener {
     ClientesGUI clientesGUI;
     ABMClientes abmClientes;
     ABMCobros abmCobros;
+    ABMVentas abmVentas;
     Busqueda busquedaClientes;
     boolean apreteModificar = false;
     NuevoPagoGUI nuevoPagoGUI;
@@ -52,6 +54,7 @@ public class ControladorClientesGUI implements ActionListener {
         clientesGUI.setActionListener(this);
         abmClientes = new ABMClientes();
         abmCobros = new ABMCobros();
+        abmVentas = new ABMVentas();
         busquedaClientes = new Busqueda();
         nuevoPagoGUI = new NuevoPagoGUI();
         nuevoPagoGUI.setActionListener(this);
@@ -350,6 +353,25 @@ public class ControladorClientesGUI implements ActionListener {
                 ObtenerDetallesVenta(r);
                 detallesVentaGUI.setLocationRelativeTo(null);
                 detallesVentaGUI.setVisible(true);
+            }else{
+                JOptionPane.showMessageDialog(clientesGUI, "Debe seleccionar una venta!", "Atencion!", JOptionPane.WARNING_MESSAGE);
+            }
+        }
+        
+        if (e.getSource().equals(clientesGUI.getBtnEliminarVenta())) {
+            if(clientesGUI.getTablaVentasCliente().getSelectedRowCount() == 1){
+                Integer resp = JOptionPane.showConfirmDialog(clientesGUI, "¿Desea borrar la venta seleccionada? Esta operacion repondra stock de los articulos vendidos y eliminara todos sus pagos y cuotas.", "Confirmar borrado", JOptionPane.YES_NO_OPTION);
+                if (resp == JOptionPane.YES_OPTION) {
+                    int row = clientesGUI.getTablaVentasCliente().getSelectedRow();
+                    abrirBase();
+                    Venta v = Venta.first("id = ?", clientesGUI.getTablaVentaClientesDefault().getValueAt(row, 0));
+                    Base.close();
+                    if(abmVentas.Eliminar(v)){
+                        JOptionPane.showMessageDialog(clientesGUI, "Venta eliminada exitosamente!", "Operacion exitosa", JOptionPane.INFORMATION_MESSAGE);
+                        clientesGUI.getTablaVentaClientesDefault().removeRow(row);
+                        clientesGUI.getTablaCuotasVentasClientesDefault().setRowCount(0);
+                    }
+                }
             }else{
                 JOptionPane.showMessageDialog(clientesGUI, "Debe seleccionar una venta!", "Atencion!", JOptionPane.WARNING_MESSAGE);
             }
