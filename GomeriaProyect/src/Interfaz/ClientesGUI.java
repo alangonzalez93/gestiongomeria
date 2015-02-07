@@ -12,6 +12,7 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -46,6 +47,10 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         TableCuotasVentaCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
         TableCuotasVentaCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
         TableCuotasVentaCliente.getColumnModel().getColumn(4).setPreferredWidth(100);
+        
+        TablaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        TablaVentasCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        TableCuotasVentaCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         
     }
 
@@ -469,6 +474,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                 return canEdit [columnIndex];
             }
         });
+        TablaClientes.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(TablaClientes);
 
         jLabel14.setText("Encontrados: ");
@@ -713,17 +719,13 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
         TablaVentasCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "ID", "Fecha", "Monto", "Forma de pago"
-            }
+                "ID", "Fecha", "Monto","Forma pago"}
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.Float.class, java.lang.Object.class
+                java.lang.Integer.class, java.lang.String.class, java.math.BigDecimal.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -747,10 +749,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
         TableCuotasVentaCliente.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
+
             },
             new String [] {
                 "ID", "Fecha a pagar", "Fecha pago", "Estado", "Monto"
