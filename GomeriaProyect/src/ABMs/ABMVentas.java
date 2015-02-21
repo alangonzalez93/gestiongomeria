@@ -33,14 +33,14 @@ public class ABMVentas {
         boolean result = true;
         abrirBase();
         Base.openTransaction();
-        Venta venta = Venta.create("cliente_id", v.get("cliente_id"), "fecha", v.get("fecha"), "monto", v.get("monto"), "descripcion", v.get("descripcion"), "cant_cuotas", v.get("cant_cuotas"), "forma_pago", v.get("forma_pago"));
+        Venta venta = Venta.create("cliente_id", v.get("cliente_id"), "fecha", v.get("fecha"), "monto", v.get("monto"), "descripcion", v.get("descripcion")/*, "cant_cuotas", v.get("cant_cuotas")*/, "forma_pago", v.get("forma_pago"));
         if(venta.saveIt()){
             idVenta = venta.getInteger("id");
             Base.commitTransaction();
             Base.close();
             result = result && cargarArticulosVentas(v.getArticulos());
             result = result && actualizarStock(v.getArticulos());
-            result = result && crearCobros(v);
+           // result = result && crearCobros(v);
             return result;
         }
         Base.commitTransaction();
