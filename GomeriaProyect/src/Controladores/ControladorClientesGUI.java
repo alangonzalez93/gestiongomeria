@@ -59,7 +59,7 @@ public class ControladorClientesGUI implements ActionListener {
         abmCobros = new ABMCobros();
         abmVentas = new ABMVentas();
         busquedaClientes = new Busqueda();
-        nuevoPagoGUI = new NuevoPagoGUI();
+        nuevoPagoGUI = new NuevoPagoGUI(apliGUI, true);
         nuevoPagoGUI.setActionListener(this);
         aplicacionGUI = apliGUI;
         this.clientesGUI.getRazonBox().addActionListener(new ActionListener() {
@@ -75,26 +75,35 @@ public class ControladorClientesGUI implements ActionListener {
             }
         });
         //////////////Actualizar datos con click/////////////////////
-        clientesGUI.getTablaClientes().addMouseListener(new java.awt.event.MouseAdapter() {
-            @Override
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                if (clientesGUI.getTablaClientes().getSelectedRowCount() == 1){
-                    tablaClienteMouseClicked(evt);
-                }else{
-                    clientesGUI.getTablaVentaClientesDefault().setRowCount(0);
-                    clientesGUI.getTablaCuotasVentasClientesDefault().setRowCount(0);
-                    clientesGUI.LimpiarCampos();
-                    clientesGUI.EstadoInicial();
-                }
-            }
-        });
+        /*clientesGUI.getTablaClientes().addMouseListener(new java.awt.event.MouseAdapter() {
+         @Override
+         public void mouseClicked(java.awt.event.MouseEvent evt) {
+         if (clientesGUI.getTablaClientes().getSelectedRowCount() == 1){
+         tablaClienteMouseClicked(evt);
+         }else{
+         clientesGUI.getTablaVentaClientesDefault().setRowCount(0);
+         clientesGUI.getTablaCuotasVentasClientesDefault().setRowCount(0);
+         clientesGUI.LimpiarCampos();
+         clientesGUI.EstadoInicial();
+         clientesGUI.getLblCompoPor().setText("0.00");
+         clientesGUI.getLblSaldo().setText("0.00");
+         }
+         }
+         });*/
         ///////////////////////////////////////////////////////////////////////
         /////////Actualizar datos cuando cambie la seleccion (Ej. flechas)/////
         clientesGUI.getTablaClientes().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-                if (clientesGUI.getTablaClientes().getSelectedRowCount() == 1){
+                if (clientesGUI.getTablaClientes().getSelectedRowCount() == 1) {
                     tablaClienteMouseClicked(null);
+                } else {
+                    clientesGUI.getTablaVentaClientesDefault().setRowCount(0);
+                    clientesGUI.getTablaCuotasVentasClientesDefault().setRowCount(0);
+                    clientesGUI.LimpiarCampos();
+                    clientesGUI.EstadoInicial();
+                    clientesGUI.getLblCompoPor().setText("0.00");
+                    clientesGUI.getLblSaldo().setText("0.00");
                 }
             }
         });
@@ -207,6 +216,7 @@ public class ControladorClientesGUI implements ActionListener {
     }
 
     private void tablaClienteMouseClicked(MouseEvent evt) {
+        System.out.println("cuantas veces me ejecuto?");
         CargarDatosClienteSeleccionado();
         CargarVentasClienteSeleccionado();
         clientesGUI.getTablaCuotasVentasClientesDefault().setRowCount(0);
@@ -258,6 +268,7 @@ public class ControladorClientesGUI implements ActionListener {
         abrirBase();
         clientesGUI.getTablaVentaClientesDefault().setRowCount(0);
         BigDecimal totalVentas = new BigDecimal(0);
+        BigDecimal totalPago = new BigDecimal(0);
         LazyList<Venta> ventasCliente = Venta.where("cliente_id = ?", clientesGUI.getIdTxt().getText());
         for (Venta v : ventasCliente) {
             Object[] row = new Object[4];
@@ -267,8 +278,17 @@ public class ControladorClientesGUI implements ActionListener {
             row[3] = v.getString("forma_pago");
             clientesGUI.getTablaVentaClientesDefault().addRow(row);
             totalVentas = totalVentas.add(v.getBigDecimal("monto"));
+
+            LazyList<Cobro> listaCobros = Cobro.where("venta_id = ?", v.get("id"));
+            for (Cobro c : listaCobros) {
+                if (c.getDate("fecha_pago") != null) {
+                    totalPago = totalPago.add(c.getBigDecimal("monto"));
+                }
+            }
         }
+
         clientesGUI.getLblCompoPor().setText(totalVentas.setScale(2, RoundingMode.CEILING).toString());
+        clientesGUI.getLblSaldo().setText(totalVentas.subtract(totalPago).setScale(2, RoundingMode.CEILING).toString());
         Base.close();
     }
 
@@ -452,20 +472,23 @@ public class ControladorClientesGUI implements ActionListener {
 
         //////////////Botones Cuotas/////////////////
         if (e.getSource().equals(clientesGUI.getBtnPagarCuota())) {
-            int row = clientesGUI.getTableCuotasVentaCliente().getSelectedRow();
-            if (row != -1) {
-                if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(row, 3)).equals("IMPAGO")) {
-                    if (PagarCuota(row)) {
-                        JOptionPane.showMessageDialog(clientesGUI, "Cuota pagada exitosamente!");
-                        tablaVentaClienteMouseClicked(null);
+            Integer resp = JOptionPane.showConfirmDialog(clientesGUI, "¿Esta seguro que decea pagar la cuota?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (resp == JOptionPane.YES_OPTION) {
+                int row = clientesGUI.getTableCuotasVentaCliente().getSelectedRow();
+                if (row != -1) {
+                    if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(row, 3)).equals("IMPAGO")) {
+                        if (PagarCuota(row)) {
+                            JOptionPane.showMessageDialog(clientesGUI, "Cuota pagada exitosamente!");
+                            tablaVentaClienteMouseClicked(null);
+                        } else {
+                            JOptionPane.showMessageDialog(clientesGUI, "Error, no se pudo ejecutar la operacion.", "Error!", JOptionPane.ERROR_MESSAGE);
+                        }
                     } else {
-                        JOptionPane.showMessageDialog(clientesGUI, "Error, no se pudo ejecutar la operacion.", "Error!", JOptionPane.ERROR_MESSAGE);
+                        JOptionPane.showMessageDialog(clientesGUI, "Esta cuota ya fue pagada.", "Error!", JOptionPane.ERROR_MESSAGE);
                     }
                 } else {
-                    JOptionPane.showMessageDialog(clientesGUI, "Esta cuota ya fue pagada.", "Error!", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(clientesGUI, "Debe seleccionar una cuota!", "Atencion!", JOptionPane.WARNING_MESSAGE);
                 }
-            } else {
-                JOptionPane.showMessageDialog(clientesGUI, "Debe seleccionar una cuota!", "Atencion!", JOptionPane.WARNING_MESSAGE);
             }
         }
         if (e.getSource().equals(clientesGUI.getBtnCrearNuevoPago())) {
@@ -480,15 +503,34 @@ public class ControladorClientesGUI implements ActionListener {
         ////////////// Botones crear nueva cuota///////////////////////
         if (e.getSource().equals(nuevoPagoGUI.getBtnCancelarCrearCuota())) {
             nuevoPagoGUI.setVisible(false);
+            nuevoPagoGUI.getTxtMonto().setText("0.00");
+            nuevoPagoGUI.getTxtCalendario().setDate(Calendar.getInstance().getTime());
         }
         if (e.getSource().equals(nuevoPagoGUI.getBtnCrearCuota())) {
-            if (abmCobros.Alta(ObtenerDatosCobro())) {
-                JOptionPane.showMessageDialog(clientesGUI, "Cuota creada exitosamente!");
-                tablaVentaClienteMouseClicked(null);
-            } else {
-                JOptionPane.showMessageDialog(clientesGUI, "Ocurrio un error al intentar crear la cuota.", "Error!", JOptionPane.ERROR_MESSAGE);
+            if(FormatoOK()){
+            Integer resp = JOptionPane.showConfirmDialog(clientesGUI, "¿Esta seguro que decea crear una nueva cuota?", "Confirmar", JOptionPane.YES_NO_OPTION);
+            if (resp == JOptionPane.YES_OPTION) {
+                
+                if (abmCobros.Alta(ObtenerDatosCobro())) {
+                    JOptionPane.showMessageDialog(clientesGUI, "Cuota creada exitosamente!");
+                    tablaVentaClienteMouseClicked(null);
+                } else {
+                    JOptionPane.showMessageDialog(clientesGUI, "Ocurrio un error al intentar crear la cuota.", "Error!", JOptionPane.ERROR_MESSAGE);
+                }
+            }
             }
         }
+    }
+
+    private boolean FormatoOK() {
+        try {
+            Double monto = Double.valueOf(nuevoPagoGUI.getTxtMonto().getText());
+        } catch (NumberFormatException | ClassCastException e) {
+            JOptionPane.showMessageDialog(clientesGUI, "Error en el monto de la cuota. Solo se admiten numeros. Los decimales se escriben despues de un . (punto)", "Error de formato", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+
+        return true;
     }
 
     private Cobro ObtenerDatosCobro() {
@@ -513,7 +555,7 @@ public class ControladorClientesGUI implements ActionListener {
         BigDecimal montoPagado = new BigDecimal(0);
         for (Cobro c : listaCobros) {
             if (c.getString("estado").equals("PAGO")) {
-                montoPagado.add(c.getBigDecimal("monto"));
+                montoPagado = montoPagado.add(c.getBigDecimal("monto"));
             }
         }
         detallesVentaGUI.getLblMontoPagado().setText(montoPagado.setScale(2, RoundingMode.CEILING).toString());

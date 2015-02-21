@@ -70,6 +70,10 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         return TablaVentaClientesDefault;
     }
 
+    public JLabel getLblSaldo() {
+        return LblSaldo;
+    }
+
     public DefaultTableModel getTablaCuotasVentasClientesDefault() {
         return TablaCuotasVentasClientesDefault;
     }
@@ -432,6 +436,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         BtnEliminarVenta = new javax.swing.JButton();
         BtnCrearNuevoPago = new javax.swing.JButton();
         BtnDetalles = new javax.swing.JButton();
+        LblSaldo = new javax.swing.JLabel();
 
         setClosable(true);
         setDefaultCloseOperation(javax.swing.WindowConstants.HIDE_ON_CLOSE);
@@ -787,8 +792,8 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         jLabel16.setText("Compro por $");
 
         LblCompoPor.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
-        LblCompoPor.setForeground(new java.awt.Color(21, 192, 65));
-        LblCompoPor.setText("xxxx");
+        LblCompoPor.setForeground(new java.awt.Color(8, 129, 39));
+        LblCompoPor.setText("0.00");
 
         jLabel18.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
         jLabel18.setText("Saldo $");
@@ -804,6 +809,10 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
         BtnDetalles.setText("Detalles");
         BtnDetalles.setEnabled(false);
+
+        LblSaldo.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
+        LblSaldo.setForeground(new java.awt.Color(196, 37, 27));
+        LblSaldo.setText("0.00");
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -821,7 +830,10 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addComponent(jLabel13)
-                            .addComponent(jLabel18)
+                            .addGroup(jPanel4Layout.createSequentialGroup()
+                                .addComponent(jLabel18)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(LblSaldo))
                             .addGroup(jPanel4Layout.createSequentialGroup()
                                 .addComponent(jLabel16)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -875,7 +887,9 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                     .addComponent(jLabel16)
                     .addComponent(LblCompoPor))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel18)
+                .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel18)
+                    .addComponent(LblSaldo))
                 .addGap(57, 57, 57))
         );
 
@@ -922,6 +936,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
     private javax.swing.JButton BtnVerTodosPagos;
     private javax.swing.JLabel CuitLbl;
     private javax.swing.JLabel LblCompoPor;
+    private javax.swing.JLabel LblSaldo;
     private javax.swing.JTable TablaClientes;
     private javax.swing.JTable TablaVentasCliente;
     private javax.swing.JTable TableCuotasVentaCliente;

@@ -52,6 +52,10 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(100);
         tablaArticulos.getColumnModel().getColumn(3).setPreferredWidth(100);
         tablaArticulos.getColumnModel().getColumn(4).setPreferredWidth(30);
+        
+        nroChequeLbl.setVisible(false);
+        nroChequeTxt.setVisible(false);
+        
     }
 
     public DefaultTableModel getTablaClientesDefault() {
@@ -99,9 +103,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         return descripcionArea;
     }
 
-    public JSpinner getCantidadCuotasSp() {
-        return cantidadCuotasSp;
-    }
 
     public JLabel getNroChequeLbl() {
         return nroChequeLbl;
@@ -119,9 +120,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         return idClienteTxt;
     }
 
-    public JTextField getMontoCuotasTxt() {
-        return montoCuotasTxt;
-    }
+
 
     public JTextField getNombreClienteTxt() {
         return nombreClienteTxt;
@@ -184,10 +183,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         totalTxt = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         formaPagoBox = new javax.swing.JComboBox();
-        jLabel8 = new javax.swing.JLabel();
-        cantidadCuotasSp = new javax.swing.JSpinner();
-        jLabel9 = new javax.swing.JLabel();
-        montoCuotasTxt = new javax.swing.JTextField();
         nroChequeLbl = new javax.swing.JLabel();
         nroChequeTxt = new javax.swing.JTextField();
         quitarBtn = new javax.swing.JButton();
@@ -239,7 +234,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 458, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -298,7 +293,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(busquedaArticuloBox, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addComponent(jScrollPane2)
+            .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 447, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -349,28 +344,16 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
 
         calendarioTxt.setDateFormatString("dd-MM-yyyy");
 
-        jLabel6.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Droid Sans", 1, 24)); // NOI18N
         jLabel6.setText("TOTAL  $");
 
-        totalTxt.setFont(new java.awt.Font("Droid Sans", 1, 18)); // NOI18N
+        totalTxt.setFont(new java.awt.Font("Droid Sans", 1, 24)); // NOI18N
 
         jLabel7.setText("Forma de pago");
 
         formaPagoBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "CONTADO", "POR SEMANA", "POR QUINCENA", "POR MES", "CHEQUE", "TARJETA" }));
 
-        jLabel8.setText("Cantidad de cuotas");
-
-        cantidadCuotasSp.setEnabled(false);
-        cantidadCuotasSp.setValue(1);
-
-        jLabel9.setText("Cuotas de $");
-
-        montoCuotasTxt.setEnabled(false);
-
         nroChequeLbl.setText("Nro cheque");
-        nroChequeLbl.setEnabled(false);
-
-        nroChequeTxt.setEnabled(false);
 
         quitarBtn.setText("Quitar articulo");
         quitarBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -399,7 +382,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(calendarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 483, Short.MAX_VALUE))
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 494, Short.MAX_VALUE))
                         .addContainerGap())
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addComponent(jLabel4)
@@ -414,28 +397,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addComponent(jScrollPane4)
                                 .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel8)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cantidadCuotasSp)
-                                        .addGap(33, 33, 33)
-                                        .addComponent(jLabel9))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addComponent(jLabel7)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(formaPagoBox, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addGap(10, 10, 10)
-                                        .addComponent(nroChequeLbl)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(nroChequeTxt))
-                                    .addGroup(jPanel3Layout.createSequentialGroup()
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(montoCuotasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 126, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(21, 21, 21))
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel3Layout.createSequentialGroup()
@@ -446,8 +407,17 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                                 .addComponent(totalTxt)
                                 .addGap(14, 14, 14))
                             .addGroup(jPanel3Layout.createSequentialGroup()
-                                .addComponent(quitarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(quitarBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(jPanel3Layout.createSequentialGroup()
+                                        .addComponent(jLabel7)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(formaPagoBox, javax.swing.GroupLayout.PREFERRED_SIZE, 148, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(18, 18, 18)
+                                        .addComponent(nroChequeLbl)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(nroChequeTxt)))
+                                .addContainerGap())))))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -464,7 +434,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(calendarioTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 133, Short.MAX_VALUE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 130, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -475,20 +445,14 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel11)))
                 .addGap(5, 5, 5)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 66, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(formaPagoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7)
+                    .addComponent(formaPagoBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(nroChequeLbl)
                     .addComponent(nroChequeTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel8)
-                    .addComponent(cantidadCuotasSp, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9)
-                    .addComponent(montoCuotasTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(16, 16, 16))
+                .addGap(23, 23, 23))
         );
 
         registrarVentaBtn.setText("Registrar venta");
@@ -507,9 +471,9 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(registrarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 258, Short.MAX_VALUE)
+                        .addComponent(registrarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cancelarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE))
+                        .addComponent(cancelarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -549,7 +513,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     private javax.swing.JTextField busquedaNombreTxt;
     private com.toedter.calendar.JDateChooser calendarioTxt;
     private javax.swing.JButton cancelarVentaBtn;
-    private javax.swing.JSpinner cantidadCuotasSp;
     private javax.swing.JTextArea descripcionArea;
     private javax.swing.JComboBox formaPagoBox;
     private javax.swing.JTextField idClienteTxt;
@@ -561,8 +524,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
@@ -570,7 +531,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane4;
-    private javax.swing.JTextField montoCuotasTxt;
     private javax.swing.JTextField nombreClienteTxt;
     private javax.swing.JLabel nroChequeLbl;
     private javax.swing.JTextField nroChequeTxt;

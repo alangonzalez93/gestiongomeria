@@ -46,7 +46,7 @@ public class ControladorPrincipal implements ActionListener{
         
         controladorClientesGUI = new ControladorClientesGUI(clientesGUI,aplicacion);
         controladorArticulosGUI = new ControladorArticulosGUI(articulosGUI);
-        controladorCargarVentaGUI = new ControladorCargarVentaGUI(cargarVentaGUI);
+        controladorCargarVentaGUI = new ControladorCargarVentaGUI(cargarVentaGUI,aplicacion);
         aplicacion.setActionListener(this);
         
         aplicacion.getContenedorDesk().add(clientesGUI);
