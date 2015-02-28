@@ -7,10 +7,13 @@ package Controladores;
 
 import Interfaz.AplicacionGUI;
 import Interfaz.ArticulosGUI;
+import Interfaz.CargarCompraGUI;
 import Interfaz.CargarVentaGUI;
 import Interfaz.ClientesGUI;
+import Interfaz.ProveedoresGUI;
 import Modelos.Articulo;
 import Modelos.Cliente;
+import Modelos.Proveedor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.RoundingMode;
@@ -28,9 +31,13 @@ public class ControladorPrincipal implements ActionListener{
     ClientesGUI clientesGUI;
     CargarVentaGUI cargarVentaGUI;
     ArticulosGUI articulosGUI;
+    ProveedoresGUI proveedoresGUI;
+    CargarCompraGUI cargarCompraGUI;
     ControladorClientesGUI controladorClientesGUI;
     ControladorArticulosGUI controladorArticulosGUI;
     ControladorCargarVentaGUI controladorCargarVentaGUI;
+    ControladorProveedoresGUI controladorProveedoresGUI;
+    ControladorCargarCompraGUI controladorCargarCompraGUI;
 
     public ControladorPrincipal() {
         try {
@@ -43,15 +50,22 @@ public class ControladorPrincipal implements ActionListener{
         clientesGUI = new ClientesGUI();
         cargarVentaGUI = new CargarVentaGUI();
         articulosGUI = new ArticulosGUI();
+        proveedoresGUI = new ProveedoresGUI();
+        cargarCompraGUI = new CargarCompraGUI();
         
         controladorClientesGUI = new ControladorClientesGUI(clientesGUI,aplicacion);
         controladorArticulosGUI = new ControladorArticulosGUI(articulosGUI);
         controladorCargarVentaGUI = new ControladorCargarVentaGUI(cargarVentaGUI,aplicacion);
+        controladorProveedoresGUI = new ControladorProveedoresGUI(proveedoresGUI, aplicacion);
+        controladorCargarCompraGUI = new ControladorCargarCompraGUI(cargarCompraGUI, aplicacion);
+        
         aplicacion.setActionListener(this);
         
         aplicacion.getContenedorDesk().add(clientesGUI);
         aplicacion.getContenedorDesk().add(cargarVentaGUI);
         aplicacion.getContenedorDesk().add(articulosGUI);
+        aplicacion.getContenedorDesk().add(proveedoresGUI);
+        aplicacion.getContenedorDesk().add(cargarCompraGUI);
         
         aplicacion.setVisible(true);
         aplicacion.setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -68,6 +82,21 @@ public class ControladorPrincipal implements ActionListener{
             row[1] = /*cliente.getString("apellido")+", "+*/cliente.getString("nombre");
             row[2] = cliente.getString("ciudad");
             clientesGUI.getTablaClientesDefault().addRow(row);
+        }
+        Base.close();
+    }
+    
+    private void ActualizarListaProveedores(){
+        abrirBase();
+        proveedoresGUI.getTablaProveedoresDefault().setRowCount(0);
+        LazyList<Proveedor> listaProveedores = Proveedor.findAll();
+        proveedoresGUI.getEncontradosLbl().setText(String.valueOf(listaProveedores.size()));
+        for(Proveedor prov: listaProveedores){
+            Object row[] = new String[3];
+            row[0] = prov.getString("id");
+            row[1] = prov.getString("nombre");
+            row[2] = prov.getString("ciudad");
+            proveedoresGUI.getTablaProveedoresDefault().addRow(row);
         }
         Base.close();
     }
@@ -103,10 +132,26 @@ public class ControladorPrincipal implements ActionListener{
         }
         Base.close();
     }
-    
-    private void ActualizarListaArticulosEnCargarVenta(){
+    private void ActualizarListaProveedoresEnCargarCompra(){
         abrirBase();
-        cargarVentaGUI.getTablaArticulosDefault().setRowCount(0);
+        cargarCompraGUI.getTablaProveedoresDefault().setRowCount(0);
+        LazyList<Proveedor> listaProveedores = Proveedor.findAll();
+        for(Proveedor prov: listaProveedores){
+            Object row[] = new String[3];
+            row[0] = prov.getString("id");
+            row[1] = prov.getString("nombre");
+            row[2] = prov.getString("direccion")+" - "+prov.getString("ciudad");
+            cargarCompraGUI.getTablaProveedoresDefault().addRow(row);
+        }
+        Base.close();
+    }
+    
+    private void ActualizarListaArticulosEnCargarVentaCompra(boolean venta){
+        abrirBase();
+        if(venta)
+            cargarVentaGUI.getTablaArticulosDefault().setRowCount(0);
+        else
+            cargarCompraGUI.getTablaArticulosDefault().setRowCount(0);
         LazyList<Articulo> listaArticulos = Articulo.findAll();
         for(Articulo articulo: listaArticulos){
             Object row[] = new String[6];
@@ -115,8 +160,10 @@ public class ControladorPrincipal implements ActionListener{
             row[2] = articulo.getString("disenio");
             row[3] = articulo.getString("medida");
             row[4] = articulo.getString("stock");
-          //  row[5] = articulo.getBigDecimal("precio_venta").setScale(2, RoundingMode.CEILING).toString();;
-            cargarVentaGUI.getTablaArticulosDefault().addRow(row);
+            if(venta)
+                cargarVentaGUI.getTablaArticulosDefault().addRow(row);
+            else
+                cargarCompraGUI.getTablaArticulosDefault().addRow(row);
         }
         Base.close();
     }
@@ -136,7 +183,7 @@ public class ControladorPrincipal implements ActionListener{
         if(e.getSource() == aplicacion.getCargarVentaBtn()){
             cargarVentaGUI.setVisible(true);
             ActualizarListaClientesEnCargarVenta();
-            ActualizarListaArticulosEnCargarVenta();
+            ActualizarListaArticulosEnCargarVentaCompra(true);
             cargarVentaGUI.getCalendario();
             cargarVentaGUI.toFront();
         }
@@ -144,6 +191,17 @@ public class ControladorPrincipal implements ActionListener{
             ActualizarListaArticulos();
             articulosGUI.setVisible(true);
             articulosGUI.toFront();
+        }
+        if(e.getSource() == aplicacion.getProveedoresBtn()){
+           ActualizarListaProveedores();
+            proveedoresGUI.setVisible(true);
+            proveedoresGUI.toFront();
+        }
+        if(e.getSource() == aplicacion.getCargarCompraBtn()){
+            ActualizarListaArticulosEnCargarVentaCompra(false);
+            ActualizarListaProveedoresEnCargarCompra();
+            cargarCompraGUI.setVisible(true);
+            cargarCompraGUI.toFront();
         }
     }
     

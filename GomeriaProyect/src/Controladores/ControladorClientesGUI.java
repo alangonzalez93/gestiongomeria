@@ -8,7 +8,7 @@ import Interfaz.AplicacionGUI;
 import Interfaz.CargarVentaGUI;
 import Interfaz.ClientesGUI;
 import Interfaz.DetalleVentaGUI;
-import Interfaz.NuevoPagoGUI;
+import Interfaz.NuevoCobroGUI;
 import Modelos.Articulo;
 import Modelos.ArticulosVentas;
 import Modelos.Cliente;
@@ -48,7 +48,7 @@ public class ControladorClientesGUI implements ActionListener {
     ABMVentas abmVentas;
     Busqueda busquedaClientes;
     boolean apreteModificar = false;
-    NuevoPagoGUI nuevoPagoGUI;
+    NuevoCobroGUI nuevoPagoGUI;
     DetalleVentaGUI detallesVentaGUI;
     AplicacionGUI aplicacionGUI;
 
@@ -59,7 +59,7 @@ public class ControladorClientesGUI implements ActionListener {
         abmCobros = new ABMCobros();
         abmVentas = new ABMVentas();
         busquedaClientes = new Busqueda();
-        nuevoPagoGUI = new NuevoPagoGUI(apliGUI, true);
+        nuevoPagoGUI = new NuevoCobroGUI(apliGUI, true);
         nuevoPagoGUI.setActionListener(this);
         aplicacionGUI = apliGUI;
         this.clientesGUI.getRazonBox().addActionListener(new ActionListener() {

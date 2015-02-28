@@ -32,6 +32,10 @@ public class AplicacionGUI extends javax.swing.JFrame {
         return ContenedorDesk;
     }
 
+    public JButton getProveedoresBtn() {
+        return proveedoresBtn;
+    }
+
     public JButton getArticulosBtn() {
         return articulosBtn;
     }
@@ -223,6 +227,8 @@ public class AplicacionGUI extends javax.swing.JFrame {
         this.clientesBtn.addActionListener(lis);
         this.cargarVentaBtn.addActionListener(lis);
         this.articulosBtn.addActionListener(lis);
+        this.proveedoresBtn.addActionListener(lis);
+        this.cargarCompraBtn.addActionListener(lis);
     }
     /**
      * @param args the command line arguments
