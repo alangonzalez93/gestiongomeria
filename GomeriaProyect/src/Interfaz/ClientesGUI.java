@@ -293,6 +293,12 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         BtnModificar.setEnabled(false);
     }
     
+    public void reClick(){
+        EstadoInicial();
+        LimpiarCampos();
+        busquedaClientesTxt.setText("");
+    }
+    
     public void EstadoClienteSeleccionado(){
         apellidoTxt.setEnabled(false);
         celularTxt.setEnabled(false);

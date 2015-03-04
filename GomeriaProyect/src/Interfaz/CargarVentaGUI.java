@@ -29,8 +29,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     private DefaultTableModel tablaClientesDefault;
     private DefaultTableModel tablaArticulosDefault;
     private DefaultTableModel tablaVentaDefault;
-    
-    
+
     public CargarVentaGUI() {
         initComponents();
         tablaClientesDefault = (DefaultTableModel) tablaClientes.getModel();
@@ -42,20 +41,32 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         tablaVenta.getColumnModel().getColumn(2).setPreferredWidth(30);
         tablaVenta.getColumnModel().getColumn(3).setPreferredWidth(40);
         tablaVenta.getColumnModel().getColumn(4).setPreferredWidth(40);
-        
+
         tablaClientes.getColumnModel().getColumn(0).setPreferredWidth(20);
         tablaClientes.getColumnModel().getColumn(1).setPreferredWidth(200);
         tablaClientes.getColumnModel().getColumn(2).setPreferredWidth(170);
-        
+
         tablaArticulos.getColumnModel().getColumn(0).setPreferredWidth(20);
         tablaArticulos.getColumnModel().getColumn(1).setPreferredWidth(100);
         tablaArticulos.getColumnModel().getColumn(2).setPreferredWidth(100);
         tablaArticulos.getColumnModel().getColumn(3).setPreferredWidth(100);
         tablaArticulos.getColumnModel().getColumn(4).setPreferredWidth(30);
-        
+
         nroChequeLbl.setVisible(false);
         nroChequeTxt.setVisible(false);
-        
+
+    }
+
+    public void reClick() {
+        this.getNombreClienteTxt().setText("");
+        this.getTablaVentaDefault().setRowCount(0);
+        this.getTotalTxt().setText("0.00");
+        this.getFormaPagoBox().setSelectedIndex(0);
+        this.getDescripcionArea().setText("");
+        this.getNroChequeTxt().setText("");
+        this.getBusquedaNombreTxt().setText("");
+        this.getBusquedaMedidaTxt().setText("");
+        this.getBusquedaArticuloBox().setSelectedIndex(0);
     }
 
     public DefaultTableModel getTablaClientesDefault() {
@@ -93,8 +104,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     public JDateChooser getCalendario() {
         return calendarioTxt;
     }
-    
-    
+
     public JButton getCancelarVentaBtn() {
         return cancelarVentaBtn;
     }
@@ -102,7 +112,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     public JTextArea getDescripcionArea() {
         return descripcionArea;
     }
-
 
     public JLabel getNroChequeLbl() {
         return nroChequeLbl;
@@ -119,8 +128,6 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
     public JTextField getIdClienteTxt() {
         return idClienteTxt;
     }
-
-
 
     public JTextField getNombreClienteTxt() {
         return nombreClienteTxt;
@@ -150,6 +157,7 @@ public class CargarVentaGUI extends javax.swing.JInternalFrame {
         quitarBtn.addActionListener(lis);
         registrarVentaBtn.addActionListener(lis);
     }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

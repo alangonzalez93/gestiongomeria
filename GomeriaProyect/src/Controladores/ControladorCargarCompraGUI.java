@@ -120,31 +120,47 @@ public class ControladorCargarCompraGUI implements ActionListener, CellEditorLis
             cargarCompraGUI.getIdProveedorTxt().setText(String.valueOf(cargarCompraGUI.getTablaProveedoresDefault().getValueAt(r, 0)));
         }
     }
-/**
- * 
- * OPTIMIZAR PARA QUE CUANDO EL PRODUCTO YA ESTE EN LA TABLA SE SUME LA CANTIDAD Y NO SE AGREGUE DE NUEVO!!!!
- */
+
     private void tablaArticulosMouseClicked(MouseEvent evt) {
         if (evt.getClickCount() == 2) {
-            abrirBase();
-            int r = cargarCompraGUI.getTablaArticulos().getSelectedRow();
-            Articulo articulo = Articulo.first("id = ?", String.valueOf(cargarCompraGUI.getTablaArticulosDefault().getValueAt(r, 0)));
-            Object row[] = new Object[6];
-            row[0] = articulo.getString("id");
-            if ("CAMARA".equals(articulo.getString("tipo"))) {
-                row[1] = articulo.getString("tipo") + " " + articulo.getString("marca") + " " + articulo.getString("medida");
+        int r = cargarCompraGUI.getTablaArticulos().getSelectedRow();
+            int lineaArticulo = articuloYaCargado(String.valueOf(cargarCompraGUI.getTablaArticulosDefault().getValueAt(r, 0)));
+            // si el articulo no estaba en el carrito se agrega el articulo si no se le suma uno a la cantidad
+            if (lineaArticulo == -1) {
+                abrirBase();
+                Articulo articulo = Articulo.first("id = ?", String.valueOf(cargarCompraGUI.getTablaArticulosDefault().getValueAt(r, 0)));
+                Object row[] = new Object[6];
+                row[0] = articulo.getString("id");
+                if ("CAMARA".equals(articulo.getString("tipo"))) {
+                    row[1] = articulo.getString("tipo") + " " + articulo.getString("marca") + " " + articulo.getString("medida");
+                } else {
+                    row[1] = articulo.getString("tipo") + " " + articulo.getString("marca") + " " + articulo.getString("disenio") + " " + articulo.getString("medida");
+                }
+                row[2] = BigDecimal.valueOf(1.00);
+                row[3] = articulo.getBigDecimal("precio_venta").setScale(2, RoundingMode.CEILING).toString();
+                row[4] = articulo.getBigDecimal("precio_venta").setScale(2, RoundingMode.CEILING).toString();
+                cargarCompraGUI.getTablaCompraDefault().addRow(row);
+                Base.close();
             } else {
-                row[1] = articulo.getString("tipo") + " " + articulo.getString("marca") + " " + articulo.getString("disenio") + " " + articulo.getString("medida");
+                // Lo que se hace dentro de este else es sumar en uno a la cantidad del articulo si ya estaba en el carrito.
+                Double viejaCantidad = new Double(String.valueOf(cargarCompraGUI.getTablaCompraDefault().getValueAt(lineaArticulo, 2)));
+                BigDecimal viejaCantidadBD = BigDecimal.valueOf(viejaCantidad);
+                BigDecimal uno = new BigDecimal(1);
+                BigDecimal nuevaCantidad = viejaCantidadBD.add(uno);
+                cargarCompraGUI.getTablaCompraDefault().setValueAt(nuevaCantidad, lineaArticulo, 2);
             }
-            row[2] = BigDecimal.valueOf(1.00);
-            row[3] = articulo.getBigDecimal("precio_venta").setScale(2, RoundingMode.CEILING).toString();
-            row[4] = articulo.getBigDecimal("precio_venta").setScale(2, RoundingMode.CEILING).toString();
-            cargarCompraGUI.getTablaCompraDefault().addRow(row);
             setCellEditor();
-            Base.close();
             actualizarMonto();
-
         }
+    }
+    
+    private int articuloYaCargado(String id) {
+        for (int i = 0; i < cargarCompraGUI.getTablaCompra().getRowCount(); i++) {
+            if (String.valueOf(cargarCompraGUI.getTablaCompraDefault().getValueAt(i, 0)).equals(id)) {
+                return i;
+            }
+        }
+        return -1;
     }
 
     public Compra ObtenerDatosCompra() {

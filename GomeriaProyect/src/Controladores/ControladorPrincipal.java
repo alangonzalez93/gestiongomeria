@@ -177,6 +177,7 @@ public class ControladorPrincipal implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if(e.getSource() == aplicacion.getClientesBtn()){
             ActualizarListaClientes();
+            clientesGUI.reClick();
             clientesGUI.setVisible(true);
             clientesGUI.toFront();
         }
@@ -184,22 +185,26 @@ public class ControladorPrincipal implements ActionListener{
             cargarVentaGUI.setVisible(true);
             ActualizarListaClientesEnCargarVenta();
             ActualizarListaArticulosEnCargarVentaCompra(true);
-            cargarVentaGUI.getCalendario();
+            //cargarVentaGUI.getCalendario();
+            cargarVentaGUI.reClick();
             cargarVentaGUI.toFront();
         }
         if(e.getSource() == aplicacion.getArticulosBtn()){
             ActualizarListaArticulos();
+            articulosGUI.reClick();
             articulosGUI.setVisible(true);
             articulosGUI.toFront();
         }
         if(e.getSource() == aplicacion.getProveedoresBtn()){
            ActualizarListaProveedores();
+           proveedoresGUI.reClick();
             proveedoresGUI.setVisible(true);
             proveedoresGUI.toFront();
         }
         if(e.getSource() == aplicacion.getCargarCompraBtn()){
             ActualizarListaArticulosEnCargarVentaCompra(false);
             ActualizarListaProveedoresEnCargarCompra();
+            cargarCompraGUI.reClick();
             cargarCompraGUI.setVisible(true);
             cargarCompraGUI.toFront();
         }

@@ -151,6 +151,12 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         modificarBtn.setEnabled(false);
     }
     
+    public void reClick(){
+        EstadoInicial();
+        LimpiarCampos();
+        DisenioTxt.setEditable(false);
+    }
+    
     public void EstadoLuegoDeModificar(){
         articuloBox.setEnabled(false);
         vehiculoBox.setEnabled(false);

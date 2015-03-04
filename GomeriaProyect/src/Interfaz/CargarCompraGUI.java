@@ -55,6 +55,18 @@ public class CargarCompraGUI extends javax.swing.JInternalFrame {
         nroChequeTxt.setVisible(false);
     }
 
+    public void reClick() {
+        this.getNombreProveedorTxt().setText("");
+        this.getTablaCompraDefault().setRowCount(0);
+        this.getTotalTxt().setText("0.00");
+        this.getFormaPagoBox().setSelectedIndex(0);
+        this.getDescripcionArea().setText("");
+        this.getNroChequeTxt().setText("");
+        this.getBusquedaNombreTxt().setText("");
+        this.getBusquedaMedidaTxt().setText("");
+        this.getBusquedaArticuloBox().setSelectedIndex(0);
+    }
+    
     public DefaultTableModel getTablaProveedoresDefault() {
         return tablaProveedoresDefault;
     }

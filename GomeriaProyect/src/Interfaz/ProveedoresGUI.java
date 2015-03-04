@@ -214,6 +214,12 @@ public class ProveedoresGUI extends javax.swing.JInternalFrame {
         telTxt.setText("");
     }
     
+    public void reClick(){
+        EstadoInicial();
+        LimpiarCampos();
+        busquedaProveedoresTxt.setText("");
+    }
+    
     public void setActionListener(ActionListener al){
         BtnNuevo.addActionListener(al);
         BtnModificar.addActionListener(al);

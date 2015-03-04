@@ -18,6 +18,8 @@ import java.math.RoundingMode;
 import java.util.List;
 import javafx.beans.value.ChangeListener;
 import javax.swing.JOptionPane;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
 
@@ -70,11 +72,18 @@ public class ControladorArticulosGUI implements ActionListener{
                 // handle click
             }
         });*/
-        articulosGUI.getTablaArticulos().addMouseListener(new java.awt.event.MouseAdapter() {
-                @Override
-                public void mouseClicked(java.awt.event.MouseEvent evt) {
-                    tablaArticulosMouseClicked(evt);
+        articulosGUI.getTablaArticulos().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            @Override
+            public void valueChanged(ListSelectionEvent e) {
+                if(articulosGUI.getTablaArticulos().getSelectedRow() != -1){
+                    tablaArticulosMouseClicked(null);
+                }else{
+                    articulosGUI.EstadoInicial();
+                    articulosGUI.LimpiarCampos();
+                    articulosGUI.getDisenioTxt().setEditable(false);
                 }
+                
+            }
         });
     }
     
