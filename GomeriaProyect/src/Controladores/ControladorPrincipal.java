@@ -16,6 +16,7 @@ import Modelos.Cliente;
 import Modelos.Proveedor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 import java.math.RoundingMode;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
@@ -38,6 +39,7 @@ public class ControladorPrincipal implements ActionListener{
     ControladorCargarVentaGUI controladorCargarVentaGUI;
     ControladorProveedoresGUI controladorProveedoresGUI;
     ControladorCargarCompraGUI controladorCargarCompraGUI;
+    GestionBackupBD gestionBackup;
 
     public ControladorPrincipal() {
         try {
@@ -178,6 +180,7 @@ public class ControladorPrincipal implements ActionListener{
         if(e.getSource() == aplicacion.getClientesBtn()){
             ActualizarListaClientes();
             clientesGUI.reClick();
+            controladorClientesGUI.apreteModificar = false;
             clientesGUI.setVisible(true);
             clientesGUI.toFront();
         }
@@ -208,6 +211,15 @@ public class ControladorPrincipal implements ActionListener{
             cargarCompraGUI.setVisible(true);
             cargarCompraGUI.toFront();
         }
+        if(e.getSource() == aplicacion.getCrearBackup()){
+            gestionBackup = new GestionBackupBD();
+            gestionBackup.conectar();
+            gestionBackup.GuardarRutaBackup();
+            gestionBackup.CrearBackup();
+            String dir = (new File(System.getProperty("user.dir")).getAbsolutePath());
+            System.out.println(dir);
+        }
+        
     }
     
     public static void main(String[] args){

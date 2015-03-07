@@ -9,21 +9,6 @@
             <Property name="text" type="java.lang.String" value="Archivo"/>
           </Properties>
           <SubComponents>
-            <MenuItem class="javax.swing.JMenuItem" name="cambiosEmail">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cambiar correo"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="modificarUsuario">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Modificar datos del usuario"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="cerrarSesion">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cerrar sesi&#xf3;n"/>
-              </Properties>
-            </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="salir">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Salir"/>
@@ -31,11 +16,6 @@
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="salirActionPerformed"/>
               </Events>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="configServer">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Configurar servidor"/>
-              </Properties>
             </MenuItem>
           </SubComponents>
         </Menu>
@@ -47,16 +27,6 @@
             <MenuItem class="javax.swing.JMenuItem" name="crearBackup">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Crear Backup"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="cargarBackup">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Cargar Backup"/>
-              </Properties>
-            </MenuItem>
-            <MenuItem class="javax.swing.JMenuItem" name="enviar">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Enviar "/>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -133,7 +103,7 @@
               <Component id="clientesBtn" max="32767" attributes="0"/>
               <Component id="articulosBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="ventasBtn" alignment="0" max="32767" attributes="0"/>
-              <Component id="cargarVentaBtn" alignment="0" pref="100" max="32767" attributes="0"/>
+              <Component id="cargarVentaBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="cargarCompraBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="comprasBtn" alignment="0" max="32767" attributes="0"/>
               <Component id="proveedoresBtn" alignment="0" max="32767" attributes="0"/>

@@ -4,6 +4,7 @@ package Interfaz;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JDesktopPane;
+import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 
 /*
@@ -26,6 +27,10 @@ public class AplicacionGUI extends javax.swing.JFrame {
 
     public JButton getClientesBtn() {
         return clientesBtn;
+    }
+
+    public JMenuItem getCrearBackup() {
+        return crearBackup;
     }
 
     public JDesktopPane getContenedorDesk() {
@@ -78,15 +83,9 @@ public class AplicacionGUI extends javax.swing.JFrame {
         ContenedorDesk = new javax.swing.JDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
-        cambiosEmail = new javax.swing.JMenuItem();
-        modificarUsuario = new javax.swing.JMenuItem();
-        cerrarSesion = new javax.swing.JMenuItem();
         salir = new javax.swing.JMenuItem();
-        configServer = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
         crearBackup = new javax.swing.JMenuItem();
-        cargarBackup = new javax.swing.JMenuItem();
-        enviar = new javax.swing.JMenuItem();
         jMenu3 = new javax.swing.JMenu();
         tecPro = new javax.swing.JMenuItem();
 
@@ -116,7 +115,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
             .addComponent(clientesBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(articulosBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(ventasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(cargarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 100, Short.MAX_VALUE)
+            .addComponent(cargarVentaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(cargarCompraBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(comprasBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(proveedoresBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -142,15 +141,6 @@ public class AplicacionGUI extends javax.swing.JFrame {
 
         jMenu1.setText("Archivo");
 
-        cambiosEmail.setText("Cambiar correo");
-        jMenu1.add(cambiosEmail);
-
-        modificarUsuario.setText("Modificar datos del usuario");
-        jMenu1.add(modificarUsuario);
-
-        cerrarSesion.setText("Cerrar sesión");
-        jMenu1.add(cerrarSesion);
-
         salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,21 +149,12 @@ public class AplicacionGUI extends javax.swing.JFrame {
         });
         jMenu1.add(salir);
 
-        configServer.setText("Configurar servidor");
-        jMenu1.add(configServer);
-
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Backup");
 
         crearBackup.setText("Crear Backup");
         jMenu2.add(crearBackup);
-
-        cargarBackup.setText("Cargar Backup");
-        jMenu2.add(cargarBackup);
-
-        enviar.setText("Enviar ");
-        jMenu2.add(enviar);
 
         jMenuBar1.add(jMenu2);
 
@@ -229,6 +210,7 @@ public class AplicacionGUI extends javax.swing.JFrame {
         this.articulosBtn.addActionListener(lis);
         this.proveedoresBtn.addActionListener(lis);
         this.cargarCompraBtn.addActionListener(lis);
+        this.crearBackup.addActionListener(lis);
     }
     /**
      * @param args the command line arguments
@@ -268,22 +250,16 @@ public class AplicacionGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDesktopPane ContenedorDesk;
     private javax.swing.JButton articulosBtn;
-    private javax.swing.JMenuItem cambiosEmail;
-    private javax.swing.JMenuItem cargarBackup;
     private javax.swing.JButton cargarCompraBtn;
     private javax.swing.JButton cargarVentaBtn;
-    private javax.swing.JMenuItem cerrarSesion;
     private javax.swing.JButton clientesBtn;
     private javax.swing.JButton comprasBtn;
-    private javax.swing.JMenuItem configServer;
     private javax.swing.JMenuItem crearBackup;
-    private javax.swing.JMenuItem enviar;
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenu jMenu3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JMenuItem modificarUsuario;
     private javax.swing.JButton proveedoresBtn;
     private javax.swing.JMenuItem salir;
     private javax.swing.JMenuItem tecPro;
