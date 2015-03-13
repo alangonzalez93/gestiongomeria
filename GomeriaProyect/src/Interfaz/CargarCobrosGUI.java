@@ -9,6 +9,7 @@ import com.toedter.calendar.JDateChooser;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -26,10 +27,73 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
         super(parent, modal);
         initComponents();
         this.setLocationRelativeTo(null);
+        TxtCalendario.setDateFormatString("dd/MM/yyyy");
+        txtFechaPago.setDateFormatString("dd/MM/yyyy");
         TxtCalendario.setDate(Calendar.getInstance().getTime());
+        TxtCalendario.setEnabled(false);
+        TxtCalendario.getDateEditor().setEnabled(false);
+        txtFechaPago.getDateEditor().setEnabled(false);
+        txtFechaPago.setEnabled(false);
+        
         cuotasTableDefault = (DefaultTableModel) CuotasTable.getModel();
         this.toFront();
     }
+
+    public void BloqCampos(){
+        TxtCalendario.setEnabled(false);
+        txtFechaPago.setEnabled(false);
+        TxtMonto.setEnabled(false);
+        boxTipo.setEnabled(false);
+    }
+    
+    
+    public void ApreteBtnModificar(){
+        btnCrearCuota.setText("Guardar");
+        btnModificar.setEnabled(false);
+        btnEliminar.setText("Cancelar");
+        btnEliminar.setEnabled(true);
+        TxtCalendario.setEnabled(true);
+        txtFechaPago.setEnabled(true);
+        TxtMonto.setEnabled(true);
+        boxTipo.setEnabled(true);
+    }
+    
+    public void LimpiarCampos(){
+        TxtMonto.setText("");
+        
+    }
+    
+    public void ApreteBtnNuevo(){
+        LimpiarCampos();
+        btnCrearCuota.setText("Guardar");
+        btnModificar.setEnabled(false);
+        btnEliminar.setText("Cancelar");
+        btnEliminar.setEnabled(true);
+        TxtCalendario.setEnabled(true);
+        txtFechaPago.setEnabled(false);
+        TxtMonto.setEnabled(true);
+        boxTipo.setEnabled(true);
+    }
+    
+    
+    
+    public void ApreteBtnGuardarEliminarCancelar(){
+        LimpiarCampos();
+        btnCrearCuota.setText("Nuevo");
+        btnModificar.setEnabled(false);
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
+        BloqCampos();
+    }
+    
+    public void SeleccioneElementoTabla(){
+        btnCrearCuota.setText("Nuevo");
+        btnModificar.setEnabled(true);
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(true);
+        BloqCampos();
+    }
+    
 
     public DefaultTableModel getCuotasTableDefault() {
         return cuotasTableDefault;
@@ -43,6 +107,18 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
         return BtnPagarCuota;
     }
 
+    public JButton getBtnEliminar() {
+        return btnEliminar;
+    }
+
+    public JButton getBtnModificar() {
+        return btnModificar;
+    }
+
+    public JDateChooser getTxtFechaPago() {
+        return txtFechaPago;
+    }
+
     public JTable getCuotasTable() {
         return CuotasTable;
     }
@@ -53,6 +129,10 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
 
     public JLabel getLblNombre() {
         return LblNombre;
+    }
+
+    public JComboBox getBoxTipo() {
+        return boxTipo;
     }
 
     public JDateChooser getTxtCalendario() {
@@ -71,6 +151,8 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
         BtnCancelar.addActionListener(al);
         BtnPagarCuota.addActionListener(al);
         btnCrearCuota.addActionListener(al);
+        btnModificar.addActionListener(al);
+        btnEliminar.addActionListener(al);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,6 +175,12 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
         TxtCalendario = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
         TxtMonto = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        boxTipo = new javax.swing.JComboBox();
+        txtFechaPago = new com.toedter.calendar.JDateChooser();
+        jLabel6 = new javax.swing.JLabel();
+        btnModificar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         CuotasTable = new javax.swing.JTable();
@@ -117,58 +205,108 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
 
         BtnCancelar.setText("Salir");
 
-        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Crear cuota"));
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Gestion cuotas"));
 
-        btnCrearCuota.setText("Crear cuota");
+        btnCrearCuota.setText("Nuevo");
         btnCrearCuota.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCrearCuotaActionPerformed(evt);
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Droid Sans", 0, 18)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
         jLabel2.setText("Fecha a pagar:");
 
         TxtCalendario.setDateFormatString("dd-MM-yyyy");
 
-        jLabel4.setFont(new java.awt.Font("Droid Sans", 0, 18)); // NOI18N
+        jLabel4.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
         jLabel4.setText("Monto:     $");
 
-        TxtMonto.setFont(new java.awt.Font("Droid Sans", 0, 18)); // NOI18N
+        TxtMonto.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        TxtMonto.setEnabled(false);
+
+        jLabel5.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        jLabel5.setText("Tipo");
+
+        boxTipo.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        boxTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "EFECTIVO", "CHEQUE", "TARJETA" }));
+        boxTipo.setEnabled(false);
+
+        txtFechaPago.setDateFormatString("dd-MM-yyyy");
+
+        jLabel6.setFont(new java.awt.Font("Droid Sans", 0, 14)); // NOI18N
+        jLabel6.setText("Fecha de pago:");
+
+        btnModificar.setText("Modificar");
+        btnModificar.setEnabled(false);
+        btnModificar.setMaximumSize(new java.awt.Dimension(47, 27));
+        btnModificar.setMinimumSize(new java.awt.Dimension(47, 27));
+        btnModificar.setPreferredSize(new java.awt.Dimension(47, 27));
+
+        btnEliminar.setText("Eliminar");
+        btnEliminar.setEnabled(false);
+        btnEliminar.setMaximumSize(new java.awt.Dimension(47, 27));
+        btnEliminar.setMinimumSize(new java.awt.Dimension(47, 27));
+        btnEliminar.setPreferredSize(new java.awt.Dimension(47, 27));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(36, 36, 36)
+                .addGap(19, 19, 19)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TxtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(89, 89, 89)
-                        .addComponent(btnCrearCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(17, 17, 17)
+                        .addComponent(btnCrearCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel2)
+                            .addComponent(jLabel4))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(TxtCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(110, Short.MAX_VALUE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(TxtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(38, 38, 38)
+                                .addComponent(jLabel5))
+                            .addComponent(TxtCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(boxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)))))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(TxtCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(txtFechaPago, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel6))
+                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(TxtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(boxTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnCrearCuota)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2)
-                            .addComponent(TxtCalendario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel4)
-                            .addComponent(TxtMonto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnEliminar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -179,7 +317,7 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
 
             },
             new String [] {
-                "ID", "Fecha a pagar", "Fecha pagada", "Estado", "Monto"
+                "ID", "Fecha a pagar", "Fecha pagada", "Monto", "Tipo"
             }
         ) {
             boolean[] canEdit = new boolean [] {
@@ -204,9 +342,9 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 202, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -227,13 +365,13 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
                         .addComponent(LblFormaDePago))
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(25, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
-                .addGap(94, 94, 94)
+                .addGap(92, 92, 92)
                 .addComponent(BtnPagarCuota, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(BtnCancelar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(78, 78, 78))
+                .addGap(79, 79, 79))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -248,9 +386,9 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
                     .addComponent(LblFormaDePago))
                 .addGap(18, 18, 18)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(BtnPagarCuota)
                     .addComponent(BtnCancelar))
@@ -314,13 +452,19 @@ public class CargarCobrosGUI extends javax.swing.JDialog {
     private javax.swing.JLabel LblNombre;
     private com.toedter.calendar.JDateChooser TxtCalendario;
     private javax.swing.JTextField TxtMonto;
+    private javax.swing.JComboBox boxTipo;
     private javax.swing.JButton btnCrearCuota;
+    private javax.swing.JButton btnEliminar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private com.toedter.calendar.JDateChooser txtFechaPago;
     // End of variables declaration//GEN-END:variables
 }

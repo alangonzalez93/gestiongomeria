@@ -44,8 +44,9 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
     CargarVentaGUI cargarVentaGUI;
     Busqueda busqueda;
     ABMVentas abmVentas;
-    ABMCobros abmCobro;
+    //ABMCobros abmCobro;
     CargarCobrosGUI cargarCobrosGUI;
+    ControladorCargarCobrosGUI controladorCargarCobrosGUI;
     AplicacionGUI aplicacionGUI;
 
     public ControladorCargarVentaGUI(CargarVentaGUI cv, AplicacionGUI ap) {
@@ -56,28 +57,15 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
         abmVentas = new ABMVentas();
 
         ///////////////////Cobros//////////////////
-        abmCobro = new ABMCobros();
+       // abmCobro = new ABMCobros();
         cargarCobrosGUI = new CargarCobrosGUI(aplicacionGUI, true);
-        cargarCobrosGUI.setActionListener(this);
+        controladorCargarCobrosGUI = new ControladorCargarCobrosGUI(cargarCobrosGUI, abmVentas, cargarVentaGUI);
+        //cargarCobrosGUI.setActionListener(this);
 
-        cargarCobrosGUI.getCuotasTable().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (cargarCobrosGUI.getCuotasTable().getSelectedRowCount() == 1) {
-                    int row = cargarCobrosGUI.getCuotasTable().getSelectedRow();
-                    if (String.valueOf(cargarCobrosGUI.getCuotasTableDefault().getValueAt(row, 3)).equals("IMPAGO")) {
-                        cargarCobrosGUI.getBtnPagarCuota().setEnabled(true);
-                    } else {
-                        cargarCobrosGUI.getBtnPagarCuota().setEnabled(false);
-                    }
-                } else {
-                    cargarCobrosGUI.getBtnPagarCuota().setEnabled(false);
-                }
-            }
-        });
+        
         ///////////////////FIN COBROS///////////////////
 
-        cargarVentaGUI.getFormaPagoBox().addActionListener(new ActionListener() {
+       /* cargarVentaGUI.getFormaPagoBox().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 String item = (String) cargarVentaGUI.getFormaPagoBox().getSelectedItem();
                 cargarVentaGUI.getNroChequeTxt().setVisible(false);
@@ -87,7 +75,7 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
                     cargarVentaGUI.getNroChequeLbl().setVisible(true);
                 }
             }
-        });
+        });*/
         cargarVentaGUI.getBusquedaNombreTxt().addKeyListener(new java.awt.event.KeyAdapter() {
             @Override
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -230,7 +218,6 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
         v.set("fecha", dateToMySQLDate(cargarVentaGUI.getCalendario().getDate(), false));
         v.setBigDecimal("monto", cargarVentaGUI.getTotalTxt().getText());
         v.set("descripcion", cargarVentaGUI.getDescripcionArea().getText());
-        v.set("numero_cheque", cargarVentaGUI.getNroChequeTxt().getText());
         v.set("forma_pago", cargarVentaGUI.getFormaPagoBox().getSelectedItem());
         return v;
     }
@@ -275,47 +262,7 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
         cargarCobrosGUI.setVisible(true);
     }
 
-    private boolean PagarCuota(int row) {
-        boolean result = true;
-        abrirBase();
-        Base.openTransaction();
-        Cobro cobro = Cobro.first("id = ?", cargarCobrosGUI.getCuotasTableDefault().getValueAt(row, 0));
-        cobro.set("estado", "PAGO");
-        cobro.setDate("fecha_pago", dateToMySQLDate(Calendar.getInstance().getTime(), false));
-        result = result && cobro.saveIt();
-        Base.commitTransaction();
-        Base.close();
-        return result;
-
-    }
-
-    private Cobro ObtenerDatosCobro() {
-        Cobro c = new Cobro();
-        c.setString("estado", "IMPAGO");
-        c.setDate("fecha", dateToMySQLDate(cargarCobrosGUI.getTxtCalendario().getDate(), false));
-        c.setBigDecimal("monto", cargarCobrosGUI.getTxtMonto().getText());
-        c.set("venta_id", abmVentas.getIdVenta());
-        return c;
-    }
-
-    private void CargarCobros() {
-        abrirBase();
-        cargarCobrosGUI.getCuotasTableDefault().setRowCount(0);
-        LazyList<Cobro> listCobros = Cobro.where("venta_id = ?", abmVentas.getIdVenta());
-        for (Cobro c : listCobros) {
-            Object[] row = new Object[5];
-            row[0] = c.get("id");
-            row[1] = dateToMySQLDate(c.getDate("fecha"), true);
-            if (c.getDate("fecha_pago") != null) {
-                row[2] = dateToMySQLDate(c.getDate("fecha_pago"), true);
-            }
-            row[3] = c.getString("estado");
-            row[4] = c.getBigDecimal("monto").setScale(2, RoundingMode.CEILING).toString();
-            cargarCobrosGUI.getCuotasTableDefault().addRow(row);
-        }
-        Base.close();
-
-    }
+    
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -339,40 +286,7 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
         }
         ///////////Controlador CargarCobrosGUI//////////////////
 
-        if (e.getSource().equals(cargarCobrosGUI.getBtnPagarCuota())) {
-            int row = cargarCobrosGUI.getCuotasTable().getSelectedRow();
-            Integer resp = JOptionPane.showConfirmDialog(cargarCobrosGUI, "¿Esta seguro que decea pagar la cuota?", "Confirmar", JOptionPane.YES_NO_OPTION);
-            if (resp == JOptionPane.YES_OPTION) {
-                if (row != -1) {
-                    if (PagarCuota(row)) {
-                        JOptionPane.showMessageDialog(cargarCobrosGUI, "Cuota pagada exitosamente!");
-                        CargarCobros();
-                    } else {
-                        JOptionPane.showMessageDialog(cargarCobrosGUI, "Error, no se pudo ejecutar la operacion.", "Error!", JOptionPane.ERROR_MESSAGE);
-                    }
-                } else {
-                    JOptionPane.showMessageDialog(cargarCobrosGUI, "Debe seleccionar un pago!", "Atencion!", JOptionPane.WARNING_MESSAGE);
-                }
-            }
-        }
-        if (e.getSource().equals(cargarCobrosGUI.getBtnCancelar())) {
-            cargarCobrosGUI.setVisible(false);
-            cargarVentaGUI.setVisible(false);
-
-        }
-        if (e.getSource().equals(cargarCobrosGUI.getBtnCrearCuota())) {
-            if (FormatoOK()) {
-                Integer resp = JOptionPane.showConfirmDialog(cargarCobrosGUI, "¿Esta seguro que decea crear una nueva cuota?", "Confirmar", JOptionPane.YES_NO_OPTION);
-                if (resp == JOptionPane.YES_OPTION) {
-                    if (abmCobro.Alta(ObtenerDatosCobro())) {
-                        JOptionPane.showMessageDialog(cargarCobrosGUI, "Cuota creada exitosamente!");
-                        CargarCobros();
-                    } else {
-                        JOptionPane.showMessageDialog(cargarCobrosGUI, "Ocurrio un error al intentar crear la cuota.", "Error!", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
-        }
+        
 
         /////////////Fin Controlador CargarCobrosGUI/////////////////
     }

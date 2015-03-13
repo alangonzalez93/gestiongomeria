@@ -125,6 +125,7 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         marcaBox.setEnabled(true);
         medidaTxt.setEnabled(true);
         DisenioTxt.setEnabled(true);
+        DisenioTxt.setEnabled(true);
         precioCompraTxt.setEnabled(true);
         precioVentaTxt.setEnabled(true);
         stockSp.setEnabled(true);
@@ -141,6 +142,7 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         marcaBox.setEnabled(false);
         medidaTxt.setEnabled(false);
         DisenioTxt.setEnabled(false);
+        DisenioTxt.setEnabled(false);
         precioCompraTxt.setEnabled(false);
         precioVentaTxt.setEnabled(false);
         stockSp.setEnabled(false);
@@ -154,7 +156,7 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
     public void reClick(){
         EstadoInicial();
         LimpiarCampos();
-        DisenioTxt.setEditable(false);
+        DisenioTxt.setEnabled(false);
     }
     
     public void EstadoLuegoDeModificar(){
@@ -162,6 +164,7 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         vehiculoBox.setEnabled(false);
         marcaBox.setEnabled(false);
         medidaTxt.setEnabled(false);
+        DisenioTxt.setEnabled(false);
         DisenioTxt.setEnabled(false);
         precioCompraTxt.setEnabled(false);
         precioVentaTxt.setEnabled(false);
@@ -178,6 +181,7 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         vehiculoBox.setEnabled(false);
         marcaBox.setEnabled(false);
         medidaTxt.setEnabled(false);
+        DisenioTxt.setEnabled(false);
         DisenioTxt.setEnabled(false);
         precioCompraTxt.setEnabled(false);
         precioVentaTxt.setEnabled(false);
@@ -433,6 +437,11 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
         IdTxt.setEnabled(false);
 
         DisenioTxt.setEnabled(false);
+        DisenioTxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DisenioTxtActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -583,6 +592,10 @@ public class ArticulosGUI extends javax.swing.JInternalFrame {
     private void precioCompraTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_precioCompraTxtActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_precioCompraTxtActionPerformed
+
+    private void DisenioTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DisenioTxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DisenioTxtActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

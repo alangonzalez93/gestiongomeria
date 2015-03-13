@@ -42,7 +42,7 @@ public class ControladorArticulosGUI implements ActionListener{
         busquedaArticulos = new Busqueda();
         articulosGUI.getArticuloBox().addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                if(articulosGUI.getArticuloBox().getSelectedItem().equals("Camara")){
+                if(articulosGUI.getArticuloBox().getSelectedItem().equals("CAMARA")){
                     articulosGUI.getDisenioTxt().setEnabled(false);
                     articulosGUI.getDisenioTxt().setText("-");
                 }else{
