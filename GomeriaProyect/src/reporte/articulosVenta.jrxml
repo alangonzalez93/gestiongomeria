@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" pageWidth="555" pageHeight="802" columnWidth="535" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="4a3259c9-26f3-4cc6-85e0-1cd0545bc723">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="idVenta" class="java.lang.Integer">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT
+     articulos_ventas.`id` AS articulos_ventas_id,
+     articulos_ventas.`venta_id` AS articulos_ventas_venta_id,
+     articulos_ventas.`articulo_id` AS articulos_ventas_articulo_id,
+     articulos_ventas.`cantidad` AS articulos_ventas_cantidad,
+     articulos_ventas.`precio_final` AS articulos_ventas_precio_final,
+     articulos.`id` AS articulos_id,
+     articulos.`disenio` AS articulos_disenio,
+     articulos.`medida` AS articulos_medida,
+     articulos.`marca` AS articulos_marca,
+     ventas.`id` AS ventas_id,
+     ventas.`monto` AS ventas_monto,
+     ventas.`cliente_id` AS ventas_cliente_id,
+     ventas.`fecha` AS ventas_fecha
+FROM
+     `articulos_ventas` articulos_ventas INNER JOIN `articulos` articulos ON articulos_ventas.`articulo_id` = articulos.`id`
+     INNER JOIN `ventas` ventas ON articulos_ventas.`venta_id` = ventas.`id`
+WHERE
+     ventas.id =  $P{idVenta}]]>
+	</queryString>
+	<field name="articulos_ventas_id" class="java.lang.Integer"/>
+	<field name="articulos_ventas_venta_id" class="java.lang.Integer"/>
+	<field name="articulos_ventas_articulo_id" class="java.lang.Integer"/>
+	<field name="articulos_ventas_cantidad" class="java.lang.Integer"/>
+	<field name="articulos_ventas_precio_final" class="java.lang.Integer"/>
+	<field name="articulos_id" class="java.lang.Integer"/>
+	<field name="articulos_disenio" class="java.lang.String"/>
+	<field name="articulos_medida" class="java.lang.String"/>
+	<field name="articulos_marca" class="java.lang.String"/>
+	<field name="ventas_id" class="java.lang.Integer"/>
+	<field name="ventas_monto" class="java.lang.Float"/>
+	<field name="ventas_cliente_id" class="java.lang.Integer"/>
+	<field name="ventas_fecha" class="java.sql.Date"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<pageHeader>
+		<band splitType="Stretch"/>
+	</pageHeader>
+	<columnHeader>
+		<band height="22" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="2" width="122" height="20" backcolor="#CCCCCC" uuid="45f187c2-86aa-456d-8ad9-847132455c0b"/>
+				<text><![CDATA[Marca]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="122" y="2" width="113" height="20" backcolor="#CCCCCC" uuid="a8c5bdfd-a3ed-43fe-aa46-58e8318faeef"/>
+				<text><![CDATA[Diseño]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="235" y="2" width="133" height="20" backcolor="#CCCCCC" uuid="0b4149fc-e4c0-44ac-a07d-39a32a5aaf75"/>
+				<text><![CDATA[Medida]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="368" y="2" width="87" height="20" backcolor="#CCCCCC" uuid="5f80a3aa-5cf0-411f-a686-6a463aae2525"/>
+				<text><![CDATA[Cantidad]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="455" y="2" width="100" height="20" backcolor="#CCCCCC" uuid="0b63c810-430a-441a-899e-589bc6fa4548"/>
+				<text><![CDATA[Precio por unidad]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="122" height="20" uuid="888c9661-75a6-4c3b-8e93-de72def4a7d1"/>
+				<textFieldExpression><![CDATA[$F{articulos_marca}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="122" y="0" width="113" height="20" uuid="2af86f02-1299-485e-8bf4-38279ab8a678"/>
+				<textFieldExpression><![CDATA[$F{articulos_disenio}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="235" y="0" width="133" height="20" uuid="3946ec26-17df-4d3b-90f3-166b47741f54"/>
+				<textFieldExpression><![CDATA[$F{articulos_medida}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="368" y="0" width="52" height="20" uuid="a17cd429-c893-497d-ba15-bda63221c495"/>
+				<textFieldExpression><![CDATA[$F{articulos_ventas_cantidad}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="455" y="0" width="100" height="20" uuid="68d9eb2d-d595-435c-836e-110fc1027eb1"/>
+				<textFieldExpression><![CDATA[$F{articulos_ventas_precio_final}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch"/>
+	</pageFooter>
+</jasperReport>

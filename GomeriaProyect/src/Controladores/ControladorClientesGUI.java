@@ -148,7 +148,7 @@ public class ControladorClientesGUI implements ActionListener {
         });
         ///////////////////////////////////////////////////////////////////
         ///////////////////Actualiza tabla con click///////////////////////
-        clientesGUI.getTableCuotasVentaCliente().addMouseListener(new java.awt.event.MouseAdapter() {
+        /*clientesGUI.getTableCuotasVentaCliente().addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 if (clientesGUI.getTableCuotasVentaCliente().getSelectedRowCount() == 1) {
@@ -156,7 +156,7 @@ public class ControladorClientesGUI implements ActionListener {
                     clientesGUI.getBtnEliminarPago().setEnabled(true);
                     clientesGUI.getBtnModificarPago().setEnabled(true);
                     int r = clientesGUI.getTableCuotasVentaCliente().getSelectedRow();
-                    if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(r, 3)).equals("IMPAGO")) {
+                    if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(r, 2)).equals("IMPAGO")) {
                         clientesGUI.getBtnPagarCuota().setEnabled(true);
                     }
                 } else {
@@ -165,7 +165,7 @@ public class ControladorClientesGUI implements ActionListener {
                     clientesGUI.getBtnPagarCuota().setEnabled(false);
                 }
             }
-        });
+        });*/
         ///////////////////////////////////////////////////////////////////
         ///////Actualizar datos cuando cambie de seleccion///////////////////
         clientesGUI.getTableCuotasVentaCliente().getSelectionModel().addListSelectionListener(new ListSelectionListener() {
@@ -176,7 +176,7 @@ public class ControladorClientesGUI implements ActionListener {
                     clientesGUI.getBtnEliminarPago().setEnabled(true);
                     clientesGUI.getBtnModificarPago().setEnabled(true);
                     int r = clientesGUI.getTableCuotasVentaCliente().getSelectedRow();
-                    if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(r, 3)).equals("IMPAGO")) {
+                    if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(r, 2)).equals("IMPAGO")) {
                         clientesGUI.getBtnPagarCuota().setEnabled(true);
                     }
                 } else {
@@ -202,14 +202,16 @@ public class ControladorClientesGUI implements ActionListener {
         int r = clientesGUI.getTablaVentasCliente().getSelectedRow();
         LazyList<Cobro> listCobros = Cobro.where("venta_id = ?", clientesGUI.getTablaVentaClientesDefault().getValueAt(r, 0));
         for (Cobro c : listCobros) {
-            Object[] row = new Object[5];
+            Object[] row = new Object[4];
             row[0] = c.get("id");
             row[1] = dateToMySQLDate(c.getDate("fecha"), true);
             if (c.getDate("fecha_pago") != null) {
                 row[2] = dateToMySQLDate(c.getDate("fecha_pago"), true);
+            }else{
+                row[2] = "IMPAGO";
             }
-            row[3] = c.getString("estado");
-            row[4] = c.getBigDecimal("monto").setScale(2, RoundingMode.CEILING).toString();
+            //row[3] = c.getString("estado");
+            row[3] = c.getBigDecimal("monto").setScale(2, RoundingMode.CEILING).toString();
             clientesGUI.getTablaCuotasVentasClientesDefault().addRow(row);
         }
         Base.close();
@@ -366,7 +368,7 @@ public class ControladorClientesGUI implements ActionListener {
         abrirBase();
         Base.openTransaction();
         Cobro cobro = Cobro.first("id = ?", clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(row, 0));
-        cobro.set("estado", "PAGO");
+        //cobro.set("estado", "PAGO");
         cobro.setDate("fecha_pago", dateToMySQLDate(Calendar.getInstance().getTime(), false));
         result = result && cobro.saveIt();
         Base.commitTransaction();
@@ -476,7 +478,7 @@ public class ControladorClientesGUI implements ActionListener {
             if (resp == JOptionPane.YES_OPTION) {
                 int row = clientesGUI.getTableCuotasVentaCliente().getSelectedRow();
                 if (row != -1) {
-                    if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(row, 3)).equals("IMPAGO")) {
+                    if (String.valueOf(clientesGUI.getTablaCuotasVentasClientesDefault().getValueAt(row, 2)).equals("IMPAGO")) {
                         if (PagarCuota(row)) {
                             JOptionPane.showMessageDialog(clientesGUI, "Cuota pagada exitosamente!");
                             tablaVentaClienteMouseClicked(null);
@@ -535,7 +537,7 @@ public class ControladorClientesGUI implements ActionListener {
 
     private Cobro ObtenerDatosCobro() {
         Cobro c = new Cobro();
-        c.setString("estado", "IMPAGO");
+       // c.setString("estado", "IMPAGO");
         c.setDate("fecha", dateToMySQLDate(nuevoPagoGUI.getTxtCalendario().getDate(), false));
         c.setBigDecimal("monto", nuevoPagoGUI.getTxtMonto().getText());
         int row = clientesGUI.getTablaVentasCliente().getSelectedRow();
@@ -554,7 +556,7 @@ public class ControladorClientesGUI implements ActionListener {
         LazyList<Cobro> listaCobros = Cobro.where("venta_id = ?", idVenta);
         BigDecimal montoPagado = new BigDecimal(0);
         for (Cobro c : listaCobros) {
-            if (c.getString("estado").equals("PAGO")) {
+            if (c.getDate("fecha_pago") != null) {
                 montoPagado = montoPagado.add(c.getBigDecimal("monto"));
             }
         }

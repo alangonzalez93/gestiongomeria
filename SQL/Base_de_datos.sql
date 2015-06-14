@@ -110,7 +110,7 @@ CREATE  TABLE `gomeria`.`cobros` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `fecha` DATE NULL DEFAULT NULL,
   `fecha_pago` DATE NULL DEFAULT NULL,
-  `estado` VARCHAR(10),
+  `tipo` VARCHAR(15),
   `monto` FLOAT NULL,
   `venta_id` INT NULL DEFAULT NULL,
   PRIMARY KEY (`id`) );

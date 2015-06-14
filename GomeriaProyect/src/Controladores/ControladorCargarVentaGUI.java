@@ -22,6 +22,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -31,6 +32,7 @@ import javax.swing.event.CellEditorListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
 import org.javalite.activejdbc.Model;
@@ -49,7 +51,7 @@ public class ControladorCargarVentaGUI implements ActionListener, CellEditorList
     ControladorCargarCobrosGUI controladorCargarCobrosGUI;
     AplicacionGUI aplicacionGUI;
 
-    public ControladorCargarVentaGUI(CargarVentaGUI cv, AplicacionGUI ap) {
+    public ControladorCargarVentaGUI(CargarVentaGUI cv, AplicacionGUI ap) throws JRException, ClassNotFoundException, SQLException {
         aplicacionGUI = ap;
         cargarVentaGUI = cv;
         cargarVentaGUI.setActionListener(this);

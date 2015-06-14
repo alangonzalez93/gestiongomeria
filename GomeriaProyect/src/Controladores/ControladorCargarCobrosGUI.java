@@ -13,11 +13,15 @@ import Modelos.Cobro;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.RoundingMode;
+import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
 
@@ -33,8 +37,9 @@ public class ControladorCargarCobrosGUI implements ActionListener {
     CargarVentaGUI cargarVentaGUI;
     boolean apreteModificar = false;
     String idCuotaSeleccionada = null;
+    private ControladorJReportGomeria reporte;
 
-    public ControladorCargarCobrosGUI(CargarCobrosGUI ccg, ABMVentas abm, CargarVentaGUI cvg) {
+    public ControladorCargarCobrosGUI(CargarCobrosGUI ccg, ABMVentas abm, CargarVentaGUI cvg) throws JRException, ClassNotFoundException, SQLException {
         cargarCobrosGUI = ccg;
         cargarCobrosGUI.setActionListener(this);
         abmVentas = abm;
@@ -72,6 +77,7 @@ public class ControladorCargarCobrosGUI implements ActionListener {
                 }
             }
         });
+        reporte = new ControladorJReportGomeria("reporte.jasper");
     }
 
     private boolean PagarCuota(int row) {
@@ -94,7 +100,7 @@ public class ControladorCargarCobrosGUI implements ActionListener {
             c = Cobro.first("id = ?", id);
             Base.close();
         }
-        c.setDate("fecha_pago", dateToMySQLDate(cargarCobrosGUI.getTxtFechaPago().getDate(), false));
+        //c.setDate("fecha_pago", dateToMySQLDate(cargarCobrosGUI.getTxtFechaPago().getDate(), false));
         c.setString("tipo", cargarCobrosGUI.getBoxTipo().getSelectedItem());
         c.setDate("fecha", dateToMySQLDate(cargarCobrosGUI.getTxtCalendario().getDate(), false));
         c.setBigDecimal("monto", cargarCobrosGUI.getTxtMonto().getText());
@@ -236,6 +242,17 @@ public class ControladorCargarCobrosGUI implements ActionListener {
 
             }
 
+        }
+        if(e.getSource().equals(cargarCobrosGUI.getBtnGenFactura())){
+            try {
+                reporte.mostrarFactura(abmVentas.getIdVenta());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(ControladorCargarCobrosGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (SQLException ex) {
+                Logger.getLogger(ControladorCargarCobrosGUI.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (JRException ex) {
+                Logger.getLogger(ControladorCargarCobrosGUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 

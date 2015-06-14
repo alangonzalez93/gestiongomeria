@@ -46,7 +46,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
         TableCuotasVentaCliente.getColumnModel().getColumn(1).setPreferredWidth(100);
         TableCuotasVentaCliente.getColumnModel().getColumn(2).setPreferredWidth(100);
         TableCuotasVentaCliente.getColumnModel().getColumn(3).setPreferredWidth(100);
-        TableCuotasVentaCliente.getColumnModel().getColumn(4).setPreferredWidth(100);
+       // TableCuotasVentaCliente.getColumnModel().getColumn(4).setPreferredWidth(100);
         
         TablaClientes.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         TablaVentasCliente.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -640,7 +640,7 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
                                         .addComponent(nombreTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 285, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(idTxt, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 12, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel10)
@@ -763,14 +763,14 @@ public class ClientesGUI extends javax.swing.JInternalFrame {
 
             },
             new String [] {
-                "ID", "Fecha a pagar", "Fecha pago", "Estado", "Monto"
+                "ID", "Fecha a pagar", "Fecha pago", "Monto"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Object.class
+                java.lang.Object.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {

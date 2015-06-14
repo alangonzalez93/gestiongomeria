@@ -18,8 +18,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.math.RoundingMode;
+import java.sql.SQLException;
 import javax.swing.JFrame;
 import javax.swing.UIManager;
+import net.sf.jasperreports.engine.JRException;
 import org.javalite.activejdbc.Base;
 import org.javalite.activejdbc.LazyList;
 
@@ -41,7 +43,7 @@ public class ControladorPrincipal implements ActionListener{
     ControladorCargarCompraGUI controladorCargarCompraGUI;
     GestionBackupBD gestionBackup;
 
-    public ControladorPrincipal() {
+    public ControladorPrincipal() throws JRException, ClassNotFoundException, SQLException {
         try {
             UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
         } catch (Exception e) {
@@ -222,7 +224,7 @@ public class ControladorPrincipal implements ActionListener{
         
     }
     
-    public static void main(String[] args){
+    public static void main(String[] args) throws JRException, ClassNotFoundException, SQLException{
         ControladorPrincipal controladorPrincipal = new ControladorPrincipal();
     }
     
